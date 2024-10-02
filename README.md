@@ -31,3 +31,5 @@ Teniendo en cuenta los requerimientos he propuesto el siguiente esquema de entid
   <img src="https://res.cloudinary.com/dfmkgykqh/image/upload/v1727911790/vv2vtiasfz7nx2r3vc2e.svg" alt="Entidades
 ">
 </p>
+
+Si deseas ver mas detalles ingresa al siguiente [Link](https://dbdocs.io/jdorozco792006/AFP)
