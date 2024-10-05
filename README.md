@@ -5,31 +5,95 @@ AFP es un proyecto de software FullStack que me he propuesto para desarrollar y 
 
 ## Descripción 📖
 
-`AFP` es una aplicación web que permite a los usuarios gestionar sus finanzas personales de manera intuitiva, esto mediante el uso de presupuestos, metas, gastos recurrentes y vista para las transacciones realizadas.
+`AFP` es una aplicación web diseñada para ayudar a los usuarios a gestionar sus finanzas personales de manera intuitiva. Ofrece diversas herramientas que permiten un control eficiente de los recursos:
 
-## Planificación del Proyecto 🗓️
+- **Presupuestos**: proporcionan una guía clara sobre el límite máximo de gasto en cada categoría financiera, ayudando a evitar excesos.
+- **Metas**: permiten al usuario monitorear sus ahorros y visualizar su progreso hacia objetivos financieros específicos.
+- **Gastos recurrentes**: gestionan pagos periódicos, como cuotas, suscripciones o facturas, manteniendo al usuario al tanto de sus compromisos financieros.
+- **Transacciones**: registran y gestionan los ingresos y egresos, ofreciendo una visión completa de las finanzas personales.
 
-Antes de sumergirme directamente en el código, iré compartiendo en el repositorio los pasos que estoy siguiendo para planificar correctamente el proyecto.
+Con estas funcionalidades, `AFP` facilita una gestión financiera más ordenada y eficiente.
 
-## Requerimientos 
+## Requerimientos
 
-Para el desarrollo de la aplicación se han mencionado los siguientes requerimientos necesarios para el completo funcionamiento
+Para el desarrollo de la aplicación, se han definido los siguientes requerimientos necesarios para su completo funcionamiento:
 
-- El sistema permitirá a los usuarios crear y gestionar bolsillos de ahorro, donde podrán definir metas y cronogramas de ahorro, asociando las transacciones de ahorro a estas metas. Los usuarios podrán aprobar, modificar o eliminar estos bolsillos en cualquier momento.
+- **Gestión de Bolsillos de Ahorro**: El sistema permitirá a los usuarios crear y gestionar bolsillos de ahorro. Los usuarios podrán definir metas, establecer cronogramas de ahorro y asociar transacciones de ahorro a estas metas. Será posible aprobar, modificar o eliminar estos bolsillos en cualquier momento.
 
-- El sistema permitirá a los usuarios crear y gestionar transacciones, las cuales se pueden considerar tanto ingresos como gastos cada una con distintas categorías.
+- **Gestión de Transacciones**: Los usuarios podrán crear y gestionar transacciones (ingresos y gastos), cada una asociada a una categoría financiera específica. El sistema debe permitir la clasificación de las transacciones de acuerdo a la naturaleza del movimiento (ingreso o gasto) y su categoría correspondiente.
 
-- El sistema debe permitir a los usuarios la posibilidad de registrase y acceder de manera segura a la aplicación, ademas de permitirles modificar algunos datos personales
+- **Presupuestos**: El sistema permitirá a los usuarios crear y gestionar presupuestos, estableciendo límites máximos de gasto para diferentes categorías. Estos presupuestos ayudarán a los usuarios a controlar sus finanzas y evitar exceder los límites definidos.
 
+- **Gastos Recurrentes**: El sistema permitirá a los usuarios gestionar pagos recurrentes, como suscripciones, facturas o cuotas periódicas. Los usuarios podrán visualizar y administrar estos pagos, configurando la frecuencia y las fechas de inicio y fin.
 
+- **Registro y Autenticación Segura**: El sistema debe proporcionar un mecanismo seguro para que los usuarios se registren, inicien sesión y accedan a la aplicación. Además, permitirá a los usuarios modificar su información personal cuando lo deseen, respetando las normas de seguridad y privacidad.
 
-# Datos propuestos
+Con estos requerimientos, se busca garantizar una gestión integral y segura de las finanzas personales de los usuarios.
 
-Teniendo en cuenta los requerimientos he propuesto el siguiente esquema de entidades, puede que no cumpla con algún requerimiento o que se pueda mejorar, si ese es el caso te invito a realizar un pr
+# Planificación del Sistema
 
-<p align="center">
-  <img src="https://res.cloudinary.com/dfmkgykqh/image/upload/v1727911790/vv2vtiasfz7nx2r3vc2e.svg" alt="Entidades
-">
-</p>
+Esta sección incluye toda la información visual y los datos utilizados para planear el desarrollo de `AFP`, una aplicación web para gestionar finanzas personales.
 
-Si deseas ver mas detalles ingresa al siguiente [Link](https://dbdocs.io/jdorozco792006/AFP)
+## 1. Diagramas de Arquitectura del Sistema 🏗️
+
+### 1.1 Diagrama Entidad-Relación (ER)
+
+![Diagrama ER](https://ucarecdn.com/1ca1c9e8-213a-41b5-bc1c-8e7a02516df5/)
+
+### 1.2 Diagrama de Componentes
+
+![Diagrama de Componentes](https://ucarecdn.com/066f4bde-293a-4bae-828c-1d69a3196f61/)
+
+## 2. Estructura de Base de Datos 🗄️
+
+### 2.1 Esquema de Tablas
+
+A continuación, se presenta una vista general de las tablas y sus relaciones:
+
+- **Users**: Maneja la información personal y de acceso de los usuarios.
+- **Transactions**: Registra todas las transacciones de ingresos y gastos.
+- **Goals**: Representa los diferentes objetivos de ahorro.
+- **Subscription**: Gestiona las suscripciones y pagos periódicos.
+- **_Pendiente_ Presupuestos**: Define los límites de gasto en distintas categorías.
+
+<!-- ### 2.2 Diagrama de Tablas
+
+![Diagrama de Tablas](ruta/al/diagrama-tablas.png)
+Descripción: Vista general de las tablas que conforman la base de datos, con sus atributos y relaciones entre ellas. -->
+
+## 3. Mockups y Diseño de la UI 🎨
+
+_En desarrollo_
+
+<!-- ### 3.1 Pantallas de Usuario
+
+![Pantalla de Usuario](ruta/al/mockup-pantalla-usuario.png)
+Descripción: Diseño preliminar de la interfaz de usuario, mostrando cómo los usuarios gestionarán sus finanzas personales.
+
+### 3.2 Pantallas de Transacciones
+
+![Pantalla de Transacciones](ruta/al/mockup-pantalla-transacciones.png)
+Descripción: Diseño de la pantalla donde los usuarios pueden añadir, editar y visualizar sus transacciones. -->
+
+## 4. Flujo de Navegación del Usuario 🧭
+
+_En desarrollo_
+
+<!-- ### 4.1 Diagrama de Flujo
+
+![Diagrama de Flujo](ruta/al/diagrama-flujo.png)
+Descripción: Este diagrama ilustra el flujo de navegación de los usuarios a través de las diferentes secciones de la aplicación, desde el registro hasta la gestión de sus finanzas. -->
+
+## 5. Reglas de Negocio y Validaciones ⚖️
+
+- Los usuarios deben autenticarse de manera segura antes de poder acceder a la aplicación.
+- Solo los usuarios registrados podrán crear, modificar o eliminar transacciones, presupuestos, y metas.
+- Las transacciones deben asociarse a una categoría y deben respetar los límites definidos en los presupuestos.
+- Los pagos recurrentes serán automáticos según la frecuencia establecida, pero los usuarios podrán cancelarlos en cualquier momento.
+
+## 6. Estado del Proyecto 📆
+
+| Tarea | Descripción | Estado |
+|-------|-------------|--------|
+| **Diseño de la Base de Datos** | Creación de la entidad encargada del presupuesto. | ⬜️ En Proceso |
+| **Diseño de la Arquitectura** | Proporcionar más claridad del funcionamiento. | ⬜️ En Proceso |
