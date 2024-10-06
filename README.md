@@ -38,11 +38,11 @@ Esta sección incluye toda la información visual y los datos utilizados para pl
 
 ### 1.1 Diagrama Entidad-Relación (ER)
 
-![Diagrama ER](https://ucarecdn.com/1ca1c9e8-213a-41b5-bc1c-8e7a02516df5/)
+![Diagrama ER](https://ucarecdn.com/41e92130-f5b0-430b-a5e5-8d533ea3b1a8/)
 
-### 1.2 Diagrama de Componentes
+<!-- ### 1.2 Diagrama de Componentes
 
-![Diagrama de Componentes](https://ucarecdn.com/066f4bde-293a-4bae-828c-1d69a3196f61/)
+![Diagrama de Componentes](https://ucarecdn.com/066f4bde-293a-4bae-828c-1d69a3196f61/) -->
 
 ## 2. Estructura de Base de Datos 🗄️
 
@@ -54,12 +54,7 @@ A continuación, se presenta una vista general de las tablas y sus relaciones:
 - **Transactions**: Registra todas las transacciones de ingresos y gastos.
 - **Goals**: Representa los diferentes objetivos de ahorro.
 - **Subscription**: Gestiona las suscripciones y pagos periódicos.
-- **_Pendiente_ Presupuestos**: Define los límites de gasto en distintas categorías.
-
-<!-- ### 2.2 Diagrama de Tablas
-
-![Diagrama de Tablas](ruta/al/diagrama-tablas.png)
-Descripción: Vista general de las tablas que conforman la base de datos, con sus atributos y relaciones entre ellas. -->
+- **Budgets**: Define los límites de gasto en distintas categorías.
 
 ## 3. Mockups y Diseño de la UI 🎨
 
@@ -75,25 +70,15 @@ Descripción: Diseño preliminar de la interfaz de usuario, mostrando cómo los 
 ![Pantalla de Transacciones](ruta/al/mockup-pantalla-transacciones.png)
 Descripción: Diseño de la pantalla donde los usuarios pueden añadir, editar y visualizar sus transacciones. -->
 
-## 4. Flujo de Navegación del Usuario 🧭
-
-_En desarrollo_
-
-<!-- ### 4.1 Diagrama de Flujo
-
-![Diagrama de Flujo](ruta/al/diagrama-flujo.png)
-Descripción: Este diagrama ilustra el flujo de navegación de los usuarios a través de las diferentes secciones de la aplicación, desde el registro hasta la gestión de sus finanzas. -->
-
-## 5. Reglas de Negocio y Validaciones ⚖️
+## 4. Reglas de Negocio y Validaciones ⚖️
 
 - Los usuarios deben autenticarse de manera segura antes de poder acceder a la aplicación.
 - Solo los usuarios registrados podrán crear, modificar o eliminar transacciones, presupuestos, y metas.
 - Las transacciones deben asociarse a una categoría y deben respetar los límites definidos en los presupuestos.
 - Los pagos recurrentes serán automáticos según la frecuencia establecida, pero los usuarios podrán cancelarlos en cualquier momento.
 
-## 6. Estado del Proyecto 📆
+# Estado del Proyecto 📆
 
 | Tarea | Descripción | Estado |
 |-------|-------------|--------|
-| **Diseño de la Base de Datos** | Creación de la entidad encargada del presupuesto. | ⬜️ En Proceso |
 | **Diseño de la Arquitectura** | Proporcionar más claridad del funcionamiento. | ⬜️ En Proceso |
