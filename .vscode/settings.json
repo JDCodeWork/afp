@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "Client",
     "Api",
-    "Client and Api"
+    "Client and Api",
+    "Root"
   ]
 }
