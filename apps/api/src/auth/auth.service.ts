@@ -1,33 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { CommonService } from 'src/common/common.service';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UsersService } from 'src/users/users.service';
+
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+  constructor(private readonly usersService: UsersService) {}
 
-    private readonly commonService: CommonService,
-  ) {}
+  async register(createUserDto: CreateUserDto) {
+    const { password } = createUserDto;
 
-  async newUser(createUserDto: CreateUserDto) {
-    const user = this.userRepository.create(createUserDto);
+    const salt = bcrypt.genSaltSync();
+    createUserDto.password = bcrypt.hashSync(password, salt);
 
-    try {
-      await this.userRepository.save(user);
+    const user = await this.usersService.createUser(createUserDto);
 
-      const { name } = user;
-
-      return {
-        name,
-        // TODO: Implementar token
-      };
-    } catch (error) {
-      this.commonService.handleErrors(error);
-    }
+    return {
+      ...user,
+    };
   }
 }

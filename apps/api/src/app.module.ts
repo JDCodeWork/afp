@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CommonModule } from './common/common.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CommonModule } from './common/common.module';
       rootPath: join(__dirname, '../../', 'client/dist'),
     }),
     CommonModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
