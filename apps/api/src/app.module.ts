@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { join } from 'path';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/dist'),
     }),
+    CommonModule,
   ],
 })
 export class AppModule {}

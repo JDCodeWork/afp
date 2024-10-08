@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+    private readonly commonService: CommonService,
+  ) {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+  async newUser(createUserDto: CreateUserDto) {
+    const user = this.userRepository.create(createUserDto);
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    try {
+      await this.userRepository.save(user);
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+      const { name } = user;
+
+      return {
+        name,
+        // TODO: Implementar token
+      };
+    } catch (error) {
+      this.commonService.handleErrors(error);
+    }
   }
 }
