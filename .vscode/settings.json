@@ -4,5 +4,8 @@
     "Api",
     "Client and Api",
     "Root"
+  ],
+  "exportall.config.folderListener": [
+    "/apps/api/src/transactions/entities"
   ]
 }

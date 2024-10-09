@@ -25,5 +25,12 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  // TODO Realizar la autenticación
+  // @Get('/')
+  // @UseGuards(AuthGuard())
+  // testRoute(@GetUser() user: User) {
+  //   return {
+  //     ok: true,
+  //     user,
+  //   };
+  // }
 }

@@ -26,7 +26,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     const user = await this.userService.findOneByEmail(email);
 
-    if (!user) this.commonService.handleErrors(ErrorCodes.TokenNotValid);
+    if (!user)
+      this.commonService.handleErrors({ code: ErrorCodes.TokenNotValid });
+
+    delete user.password, user.name;
 
     return user;
   }

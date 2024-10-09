@@ -12,7 +12,7 @@ import { ErrorCodes } from './interfaces/error-codes.interface';
 export class CommonService {
   private loggerInstance = new Logger('Common');
 
-  handleErrors(error: any) {
+  handleErrors(error: { code: ErrorCodes; detail?: string }) {
     switch (error.code) {
       case ErrorCodes.KeyAlreadyExist:
         throw new BadRequestException(error.detail);
@@ -20,6 +20,8 @@ export class CommonService {
         throw new UnauthorizedException('Las credenciales no son validas');
       case ErrorCodes.TokenNotValid:
         throw new UnauthorizedException('El token no es valido');
+      case ErrorCodes.CategoryNotFound:
+        throw new NotFoundException('La categoría no existe');
       default:
         this.loggerInstance.error(error);
 

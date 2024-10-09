@@ -1,0 +1,24 @@
+import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from './category.entity';
+
+@Entity()
+export class Transaction {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'double precision' })
+  amount: number;
+
+  @Column({ type: 'text', default: '' })
+  note?: string;
+
+  @ManyToOne(() => Category, (category) => category.transactions)
+  category: Category;
+
+  @Column({ type: 'timestamp', default: new Date() })
+  create_at: Date;
+
+  @ManyToOne(() => User, (user) => user.transactions)
+  user: User;
+}

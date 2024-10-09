@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Transaction } from 'src/transactions/entities/transaction.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -12,7 +13,12 @@ export class User {
   email: string;
 
   @Column({ type: 'text' })
-  password;
+  password: string;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.user, {
+    cascade: true,
+  })
+  transactions?: Transaction[];
 
   // TODO Realizar relaciones con las demás entidades
 }

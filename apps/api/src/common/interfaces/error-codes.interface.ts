@@ -1,5 +1,6 @@
 export enum ErrorCodes {
-  CredentialsNotValid = '1',
-  TokenNotValid = '2',
+  CredentialsNotValid = '0',
+  TokenNotValid = '1',
+  CategoryNotFound = '10',
   KeyAlreadyExist = '23505',
 }
