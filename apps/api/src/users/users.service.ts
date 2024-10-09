@@ -13,7 +13,7 @@ export class UsersService {
     private readonly commonService: CommonService,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create(createUserDto);
 
     try {
@@ -28,5 +28,9 @@ export class UsersService {
     } catch (error) {
       this.commonService.handleErrors(error);
     }
+  }
+
+  async findOneByEmail(email: string) {
+    return await this.userRepository.findOneBy({ email });
   }
 }
