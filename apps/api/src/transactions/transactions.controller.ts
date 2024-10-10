@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -29,13 +30,13 @@ export class TransactionsController {
   }
 
   @Get()
-  findAll() {
-    return this.transactionsService.findAll();
+  findAll(@GetUser() user: User) {
+    return this.transactionsService.findAll(user);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.transactionsService.findOne(+id);
+  findOne(@GetUser() user: User, @Param('id', ParseIntPipe) id: number) {
+    return this.transactionsService.findOne(id, user);
   }
 
   @Patch(':id')
@@ -47,7 +48,7 @@ export class TransactionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionsService.remove(+id);
+  remove(@GetUser() user: User, @Param('id', ParseIntPipe) id: number) {
+    return this.transactionsService.remove(id, user);
   }
 }

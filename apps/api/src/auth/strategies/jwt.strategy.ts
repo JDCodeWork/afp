@@ -29,7 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user)
       this.commonService.handleErrors({ code: ErrorCodes.TokenNotValid });
 
-    delete user.password, user.name;
+    delete user.password, user.name, user.email;
 
     return user;
   }

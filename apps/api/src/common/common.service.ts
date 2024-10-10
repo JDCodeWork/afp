@@ -22,6 +22,8 @@ export class CommonService {
         throw new UnauthorizedException('El token no es valido');
       case ErrorCodes.CategoryNotFound:
         throw new NotFoundException('La categoría no existe');
+      case ErrorCodes.TransactionNotFound:
+        throw new NotFoundException('Transacción no encontrada');
       default:
         this.loggerInstance.error(error);
 

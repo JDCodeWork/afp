@@ -19,46 +19,87 @@ export class TransactionsService {
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto, user: User) {
-    const {
-      category: categoryName,
-      create_at,
-      ...transactionDetails
-    } = createTransactionDto;
+    const { category: categoryName, ...transactionDetails } =
+      createTransactionDto;
 
     const category = await this.categoryProvider.findOneByName(categoryName);
 
     if (!category)
       this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
 
+    if (!transactionDetails.create_at)
+      transactionDetails.create_at = new Date();
+
     const transaction = this.transactionRepository.create({
       ...transactionDetails,
-      ...(create_at ? create_at : { create_at: new Date() }),
       category,
       user,
     });
 
     try {
       await this.transactionRepository.save(transaction);
+
+      delete transaction.user.email;
+
+      return transaction;
     } catch (error) {
       this.commonService.handleErrors(error);
     }
+  }
+
+  async findAll(user: User) {
+    return await this.transactionRepository.findBy({ user });
+  }
+
+  async findOne(id: number, user: User) {
+    const transaction = await this.transactionRepository.findOneBy({
+      id,
+      user,
+    });
+
+    if (!transaction)
+      this.commonService.handleErrors({
+        code: ErrorCodes.TransactionNotFound,
+      });
 
     return transaction;
   }
 
-  findAll() {
-    return `This action returns all transactions`;
+  async update(id: number, updateTransactionDto: UpdateTransactionDto) {
+    const { category: categoryName, ...transactionsDetails } =
+      updateTransactionDto;
+
+    if (categoryName) {
+      const category = await this.categoryProvider.findOneByName(categoryName);
+
+      if (!category)
+        this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
+
+      (transactionsDetails as Transaction).category = category;
+    }
+
+    const transaction = await this.transactionRepository.preload({
+      id,
+      ...transactionsDetails,
+    });
+
+    if (!transaction)
+      this.commonService.handleErrors({ code: ErrorCodes.TransactionNotFound });
+
+    await this.transactionRepository.save(transaction);
+
+    return transaction;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} transaction`;
-  }
+  async remove(id: number, user: User) {
+    const transaction = await this.transactionRepository.findOneBy({
+      id,
+      user,
+    });
 
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
-  }
+    if (!transaction)
+      this.commonService.handleErrors({ code: ErrorCodes.TransactionNotFound });
 
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
+    await this.transactionRepository.remove(transaction);
   }
 }

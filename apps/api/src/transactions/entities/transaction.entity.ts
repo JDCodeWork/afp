@@ -13,7 +13,9 @@ export class Transaction {
   @Column({ type: 'text', default: '' })
   note?: string;
 
-  @ManyToOne(() => Category, (category) => category.transactions)
+  @ManyToOne(() => Category, (category) => category.transactions, {
+    eager: true,
+  })
   category: Category;
 
   @Column({ type: 'timestamp', default: new Date() })

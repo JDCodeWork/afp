@@ -38,7 +38,7 @@ Esta sección incluye toda la información visual y los datos utilizados para pl
 
 ### 1.1 Diagrama Entidad-Relación (ER)
 
-![Diagrama ER](https://ucarecdn.com/41e92130-f5b0-430b-a5e5-8d533ea3b1a8/)
+![Diagrama ER](https://ucarecdn.com/82e1874f-d5ca-43cc-bdb1-4334181ee6e1/)
 
 <!-- ### 1.2 Diagrama de Componentes
 
