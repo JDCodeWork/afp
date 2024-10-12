@@ -1,3 +1,4 @@
+import { Category } from 'src/categories/entities/category.entity';
 import { Transaction } from 'src/transactions/entities/transaction.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -20,5 +21,7 @@ export class User {
   })
   transactions?: Transaction[];
 
+  @OneToMany(() => Category, (category) => category.user)
+  categories?: Category[];
   // TODO Realizar relaciones con las demás entidades
 }

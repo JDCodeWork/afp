@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -24,6 +25,8 @@ export class CommonService {
         throw new NotFoundException('La categoría no existe');
       case ErrorCodes.TransactionNotFound:
         throw new NotFoundException('Transacción no encontrada');
+      case ErrorCodes.UnauthorizedCategoryRequest:
+        throw new ForbiddenException(error.detail);
       default:
         this.loggerInstance.error(error);
 

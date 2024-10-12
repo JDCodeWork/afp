@@ -1,6 +1,6 @@
-import { createCategoryDto } from 'src/transactions/dto/create-category.dto';
+import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
 
-export const categories: createCategoryDto[] = [
+export const categories: CreateCategoryDto[] = [
   {
     name: 'salary',
     type: 'income',

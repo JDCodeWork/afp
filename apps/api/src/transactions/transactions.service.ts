@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Category, Transaction } from './entities';
+import { Transaction } from './entities';
 import { CreateTransactionDto, UpdateTransactionDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommonService } from 'src/common/common.service';
 import { ErrorCodes } from 'src/common/interfaces/error-codes.interface';
 import { User } from 'src/users/entities/user.entity';
-import { CategoryProvider } from './providers/category.provider';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Injectable()
 export class TransactionsService {
@@ -14,15 +14,15 @@ export class TransactionsService {
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
 
-    private readonly categoryProvider: CategoryProvider,
+    private readonly categoriesService: CategoriesService,
     private readonly commonService: CommonService,
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto, user: User) {
-    const { category: categoryName, ...transactionDetails } =
+    const { category: categoryId, ...transactionDetails } =
       createTransactionDto;
 
-    const category = await this.categoryProvider.findOneByName(categoryName);
+    const category = await this.categoriesService.findOne(categoryId);
 
     if (!category)
       this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
@@ -66,11 +66,11 @@ export class TransactionsService {
   }
 
   async update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    const { category: categoryName, ...transactionsDetails } =
+    const { category: categoryId, ...transactionsDetails } =
       updateTransactionDto;
 
-    if (categoryName) {
-      const category = await this.categoryProvider.findOneByName(categoryName);
+    if (categoryId) {
+      const category = await this.categoriesService.findOne(categoryId);
 
       if (!category)
         this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });

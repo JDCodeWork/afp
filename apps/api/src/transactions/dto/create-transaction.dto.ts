@@ -1,6 +1,7 @@
 import {
   IsDate,
   IsDateString,
+  IsInt,
   IsOptional,
   IsPositive,
   IsString,
@@ -14,8 +15,9 @@ export class CreateTransactionDto {
   @IsString()
   note: string;
 
-  @IsString()
-  category: string;
+  @IsInt()
+  @IsPositive()
+  category: number;
 
   @IsOptional()
   @IsDateString()

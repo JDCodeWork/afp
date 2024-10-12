@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SeedService } from './seed.service';
 import { SeedController } from './seed.controller';
-import { TransactionsModule } from 'src/transactions/transactions.module';
+import { CategoriesModule } from 'src/categories/categories.module';
 
 @Module({
-  imports: [TransactionsModule],
+  imports: [CategoriesModule],
   controllers: [SeedController],
   providers: [SeedService],
 })

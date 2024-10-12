@@ -1,19 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Category } from 'src/transactions/entities';
-import { CategoryProvider } from 'src/transactions/providers/category.provider';
 import { categories } from './data/categories.data';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Injectable()
 export class SeedService {
-  constructor(private readonly categoryProvider: CategoryProvider) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   async createInitialCategories() {
-    const categoriesPromises: Promise<Category>[] = [];
-
-    categories.forEach((category) =>
-      categoriesPromises.push(this.categoryProvider.create(category)),
-    );
-
-    await Promise.all(categoriesPromises);
+    await this.categoriesService.createAll(categories);
   }
 }

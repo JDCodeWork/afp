@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { UsersModule } from './users/users.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { SeedModule } from './seed/seed.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SeedModule } from './seed/seed.module';
     UsersModule,
     TransactionsModule,
     SeedModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}
