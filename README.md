@@ -1,7 +1,7 @@
 
 # Aplicación de Finanzas Personales
 
-AFP es un proyecto de software FullStack que me he propuesto para desarrollar y reafirmar mis conocimientos tanto en el desarrollo front-end como back-end
+AFP es un proyecto de software FullStack que he propuesto para desarrollar y reafirmar conocimientos tanto en el desarrollo front-end como back-end
 
 ## Descripción 📖
 
