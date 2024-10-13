@@ -8,25 +8,26 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ErrorCodes } from './interfaces/error-codes.interface';
+import { ErrorMessages } from './interfaces/error-messges.interface';
 
 @Injectable()
 export class CommonService {
   private loggerInstance = new Logger('Common');
 
-  handleErrors(error: { code: ErrorCodes; detail?: string }) {
-    switch (error.code) {
+  handleErrors(error: ErrorCodes) {
+    switch (error) {
       case ErrorCodes.KeyAlreadyExist:
-        throw new BadRequestException(error.detail);
+        throw new BadRequestException(ErrorMessages.KeyAlreadyExist);
       case ErrorCodes.CredentialsNotValid:
-        throw new UnauthorizedException('Las credenciales no son validas');
+        throw new UnauthorizedException(ErrorMessages.CredentialsNotValid);
       case ErrorCodes.TokenNotValid:
-        throw new UnauthorizedException('El token no es valido');
+        throw new UnauthorizedException(ErrorMessages.TokenNotValid);
       case ErrorCodes.CategoryNotFound:
-        throw new NotFoundException('La categoría no existe');
+        throw new NotFoundException(ErrorMessages.CategoryNotFound);
       case ErrorCodes.TransactionNotFound:
-        throw new NotFoundException('Transacción no encontrada');
+        throw new NotFoundException(ErrorMessages.TransactionNotFound);
       case ErrorCodes.UnauthorizedCategoryRequest:
-        throw new ForbiddenException(error.detail);
+        throw new ForbiddenException(ErrorMessages.UnauthorizedCategoryRequest);
       default:
         this.loggerInstance.error(error);
 

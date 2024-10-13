@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
-
-import * as bcrypt from 'bcrypt';
-import { LoginUserDto } from './dto/login-user.dto';
-import { CommonService } from 'src/common/common.service';
-import { ErrorCodes } from 'src/common/interfaces/error-codes.interface';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+
+import { ErrorCodes } from '../common/interfaces/error-codes.interface';
+
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UsersService } from '../users/users.service';
+
+import { LoginUserDto } from './dto/login-user.dto';
+import { CommonService } from '../common/common.service';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +30,7 @@ export class AuthService {
     const token = this.jwtService.sign({ email });
 
     return {
-      ...user,
+      user,
       token,
     };
   }
@@ -39,19 +41,20 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user)
-      this.commonService.handleErrors({ code: ErrorCodes.CredentialsNotValid });
+      this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
     const isCorrectPassword = bcrypt.compareSync(
       loginUserDto.password,
       user.password,
     );
 
+    if (!isCorrectPassword)
+      this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
+
     const token = this.jwtService.sign({ email });
 
-    if (!isCorrectPassword)
-      this.commonService.handleErrors({ code: ErrorCodes.CredentialsNotValid });
-
     return {
+      name: user.name,
       token,
     };
   }

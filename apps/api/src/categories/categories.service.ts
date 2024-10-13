@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from './entities/category.entity';
 import { Repository } from 'typeorm';
+import { CommonService } from '../common/common.service';
+import { ErrorCodes } from '../common/interfaces/error-codes.interface';
+import { ErrorMessages } from '../common/interfaces/error-messges.interface';
+import { User } from '../users/entities/user.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { CommonService } from 'src/common/common.service';
-import { User } from 'src/users/entities/user.entity';
-import { ErrorCodes } from 'src/common/interfaces/error-codes.interface';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoriesService {
@@ -47,7 +48,7 @@ export class CategoriesService {
       select: { user: { id: true } },
     });
 
-    this.verifyAuthorization(category, user, 'actualizar');
+    this.verifyAuthorization(category, user);
 
     const updateCategory = await this.categoryRepository.preload({
       id,
@@ -64,7 +65,7 @@ export class CategoriesService {
       select: { user: { id: true } },
     });
 
-    this.verifyAuthorization(category, user, 'eliminar');
+    this.verifyAuthorization(category, user);
 
     await this.categoryRepository.remove(category);
   }
@@ -77,20 +78,10 @@ export class CategoriesService {
     }
   }
 
-  private verifyAuthorization(category, user, errorActionMsg) {
-    if (!category)
-      this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
+  private verifyAuthorization(category, user) {
+    if (!category) this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
 
-    if (category.default)
-      this.commonService.handleErrors({
-        detail: `Sin autoridad para ${errorActionMsg} una categoría predeterminada`,
-        code: ErrorCodes.UnauthorizedCategoryRequest,
-      });
-
-    if (category.user.id != user.id)
-      this.commonService.handleErrors({
-        detail: `Sin autoridad para ${errorActionMsg} la categoría`,
-        code: ErrorCodes.UnauthorizedCategoryRequest,
-      });
+    if (category.default || category.user.id != user.id)
+      this.commonService.handleErrors(ErrorCodes.UnauthorizedCategoryRequest);
   }
 }

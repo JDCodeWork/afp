@@ -1,12 +1,12 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../../users/entities/user.entity';
+import { UsersService } from '../../users/users.service';
 import { ConfigService } from '@nestjs/config';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CommonService } from 'src/common/common.service';
-import { ErrorCodes } from 'src/common/interfaces/error-codes.interface';
+import { Injectable } from '@nestjs/common';
+import { CommonService } from '../../common/common.service';
+import { ErrorCodes } from '../../common/interfaces/error-codes.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -26,8 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     const user = await this.userService.findOneByEmail(email);
 
-    if (!user)
-      this.commonService.handleErrors({ code: ErrorCodes.TokenNotValid });
+    if (!user) this.commonService.handleErrors(ErrorCodes.TokenNotValid);
 
     delete user.password, user.name, user.email;
 

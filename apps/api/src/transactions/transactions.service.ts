@@ -3,10 +3,10 @@ import { Repository } from 'typeorm';
 import { Transaction } from './entities';
 import { CreateTransactionDto, UpdateTransactionDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommonService } from 'src/common/common.service';
-import { ErrorCodes } from 'src/common/interfaces/error-codes.interface';
-import { User } from 'src/users/entities/user.entity';
-import { CategoriesService } from 'src/categories/categories.service';
+import { CommonService } from '../common/common.service';
+import { ErrorCodes } from '../common/interfaces/error-codes.interface';
+import { User } from '../users/entities/user.entity';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class TransactionsService {
@@ -24,8 +24,7 @@ export class TransactionsService {
 
     const category = await this.categoriesService.findOne(categoryId);
 
-    if (!category)
-      this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
+    if (!category) this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
 
     if (!transactionDetails.create_at)
       transactionDetails.create_at = new Date();
@@ -58,9 +57,7 @@ export class TransactionsService {
     });
 
     if (!transaction)
-      this.commonService.handleErrors({
-        code: ErrorCodes.TransactionNotFound,
-      });
+      this.commonService.handleErrors(ErrorCodes.TransactionNotFound);
 
     return transaction;
   }
@@ -73,7 +70,7 @@ export class TransactionsService {
       const category = await this.categoriesService.findOne(categoryId);
 
       if (!category)
-        this.commonService.handleErrors({ code: ErrorCodes.CategoryNotFound });
+        this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
 
       (transactionsDetails as Transaction).category = category;
     }
@@ -84,7 +81,7 @@ export class TransactionsService {
     });
 
     if (!transaction)
-      this.commonService.handleErrors({ code: ErrorCodes.TransactionNotFound });
+      this.commonService.handleErrors(ErrorCodes.TransactionNotFound);
 
     await this.transactionRepository.save(transaction);
 
@@ -98,7 +95,7 @@ export class TransactionsService {
     });
 
     if (!transaction)
-      this.commonService.handleErrors({ code: ErrorCodes.TransactionNotFound });
+      this.commonService.handleErrors(ErrorCodes.TransactionNotFound);
 
     await this.transactionRepository.remove(transaction);
   }

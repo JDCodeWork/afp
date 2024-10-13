@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('auth')
@@ -25,12 +25,5 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  // @Get('/')
-  // @UseGuards(AuthGuard())
-  // testRoute(@GetUser() user: User) {
-  //   return {
-  //     ok: true,
-  //     user,
-  //   };
-  // }
+  //TODO: Make singUp and signIn by Google
 }

@@ -3,9 +3,9 @@ import { TransactionsService } from './transactions.service';
 import { TransactionsController } from './transactions.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Transaction } from './entities/transaction.entity';
-import { AuthModule } from 'src/auth/auth.module';
-import { CommonModule } from 'src/common/common.module';
-import { CategoriesModule } from 'src/categories/categories.module';
+import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '../common/common.module';
+import { CategoriesModule } from '../categories/categories.module';
 
 @Module({
   imports: [

@@ -1,4 +1,4 @@
-import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
+import { CreateCategoryDto } from '../../categories/dto/create-category.dto';
 
 export const categories: CreateCategoryDto[] = [
   {

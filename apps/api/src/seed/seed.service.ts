@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { categories } from './data/categories.data';
-import { CategoriesService } from 'src/categories/categories.service';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class SeedService {
