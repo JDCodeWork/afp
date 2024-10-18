@@ -28,6 +28,8 @@ export class CommonService {
         throw new NotFoundException(ErrorMessages.TransactionNotFound);
       case ErrorCodes.UnauthorizedCategoryRequest:
         throw new ForbiddenException(ErrorMessages.UnauthorizedCategoryRequest);
+      case ErrorCodes.FilterTransactionRequired:
+        throw new BadRequestException(ErrorMessages.FilterTransactionRequired);
       default:
         this.loggerInstance.error(error);
 

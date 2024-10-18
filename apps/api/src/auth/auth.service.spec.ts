@@ -5,7 +5,6 @@ import * as bcrypt from 'bcrypt';
 
 import { AuthService } from './auth.service';
 import { CommonService } from '../common/common.service';
-import { ErrorCodes } from '../common/interfaces/error-codes.interface';
 import { UsersService } from '../users/users.service';
 import {
   createUserFixture,
@@ -14,6 +13,7 @@ import {
   userEntityFixture,
   userFixture,
 } from '../__fixtures__/auth.fixture';
+
 import { ErrorMessages } from '../common/interfaces/error-messges.interface';
 
 describe('AuthService', () => {

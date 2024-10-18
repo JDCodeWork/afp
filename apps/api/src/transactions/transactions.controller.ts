@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -15,6 +16,8 @@ import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { User } from '../users/entities/user.entity';
+import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
+import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';
 
 @Controller('transactions')
 @UseGuards(AuthGuard())
@@ -32,6 +35,22 @@ export class TransactionsController {
   @Get()
   findAll(@GetUser() user: User) {
     return this.transactionsService.findAll(user);
+  }
+
+  @Get('/filter-by')
+  findAllByFilter(
+    @Query() filterDto: FilterTransactionByTransactionDto,
+    @GetUser() user: User,
+  ) {
+    return this.transactionsService.findAllByFilterTransaction(filterDto, user);
+  }
+
+  @Get('/filter-by/category')
+  findAllByFilterCategory(
+    @Query() filterDto: FilterTransactionByCategoryDto,
+    @GetUser() user: User,
+  ) {
+    return this.transactionsService.findAllByFilterCategory(filterDto, user);
   }
 
   @Get(':id')

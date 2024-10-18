@@ -9,4 +9,9 @@ export class SeedController {
   insertCategories() {
     return this.seedService.createInitialCategories();
   }
+
+  @Get('/users')
+  insertUsers() {
+    return this.seedService.createInitialUsers();
+  }
 }

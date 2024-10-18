@@ -21,7 +21,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         return {
           secret: configService.get('SECRET_KEY'),
           signOptions: {
-            expiresIn: '2h',
+            expiresIn: '7d',
           },
         };
       },
@@ -29,6 +29,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [PassportModule, JwtModule, JwtStrategy],
+  exports: [PassportModule, JwtModule, JwtStrategy, AuthService],
 })
 export class AuthModule {}

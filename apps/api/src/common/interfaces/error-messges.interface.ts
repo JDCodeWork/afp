@@ -4,5 +4,6 @@ export enum ErrorMessages {
   CategoryNotFound = 'La categoría no existe',
   TransactionNotFound = 'Transacción no encontrada',
   UnauthorizedCategoryRequest = 'No tienes permisos para realizar esta acción',
+  FilterTransactionRequired = 'Se requiere al menos un filtro para retornar las transacciones',
   KeyAlreadyExist = 'Uno de los valores proporcionados ya existe',
 }

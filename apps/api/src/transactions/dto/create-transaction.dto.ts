@@ -21,5 +21,5 @@ export class CreateTransactionDto {
 
   @IsOptional()
   @IsDateString()
-  create_at: Date;
+  create_at?: Date;
 }

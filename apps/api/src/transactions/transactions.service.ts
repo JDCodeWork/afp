@@ -7,6 +7,8 @@ import { CommonService } from '../common/common.service';
 import { ErrorCodes } from '../common/interfaces/error-codes.interface';
 import { User } from '../users/entities/user.entity';
 import { CategoriesService } from '../categories/categories.service';
+import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
+import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';
 
 @Injectable()
 export class TransactionsService {
@@ -48,6 +50,62 @@ export class TransactionsService {
 
   async findAll(user: User) {
     return await this.transactionRepository.findBy({ user });
+  }
+
+  async findAllByFilterCategory(
+    filterDto: FilterTransactionByCategoryDto,
+    user: User,
+  ) {
+    const query = this.transactionRepository
+      .createQueryBuilder('transaction')
+      .leftJoinAndSelect('transaction.category', 'category')
+      .leftJoinAndSelect('transaction.user', 'user')
+      .select(['transaction', 'category']);
+
+    if (Object.keys(filterDto).length < 1)
+      this.commonService.handleErrors(ErrorCodes.FilterTransactionRequired);
+
+    query.andWhere('user.id = :id', { id: user.id });
+
+    Object.keys(filterDto).forEach((key) => {
+      const value = filterDto[key];
+
+      if (value) {
+        query.andWhere(`category.${key} = :${key}`, {
+          [key]: value,
+        });
+      }
+    });
+
+    return await query.getMany();
+  }
+
+  async findAllByFilterTransaction(
+    filterDto: FilterTransactionByTransactionDto,
+    user: User,
+  ) {
+    const query = this.transactionRepository
+      .createQueryBuilder('transaction')
+      .leftJoinAndSelect('transaction.user', 'user')
+      .leftJoinAndSelect('transaction.category', 'category')
+      .select(['transaction', 'category']);
+
+    if (Object.keys(filterDto).length < 1)
+      this.commonService.handleErrors(ErrorCodes.FilterTransactionRequired);
+
+    query.andWhere('user.id = :id', { id: user.id });
+
+    Object.keys(filterDto).forEach((key) => {
+      const value = filterDto[key];
+
+      if (value) {
+        query.andWhere(`transaction.${key} = :${key}`, {
+          [key]: value,
+        });
+      }
+    });
+
+    return await query.getMany();
   }
 
   async findOne(id: number, user: User) {
