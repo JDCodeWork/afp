@@ -38,7 +38,7 @@ Esta sección incluye toda la información visual y los datos utilizados para pl
 
 ### 1.1 Diagrama Entidad-Relación (ER)
 
-![Diagrama ER](https://ucarecdn.com/82e1874f-d5ca-43cc-bdb1-4334181ee6e1/)
+![Diagrama ER](./AFP_DIAGRAM.svg)
 
 <!-- ### 1.2 Diagrama de Componentes
 
@@ -76,9 +76,3 @@ Descripción: Diseño de la pantalla donde los usuarios pueden añadir, editar y
 - Solo los usuarios registrados podrán crear, modificar o eliminar transacciones, presupuestos, y metas.
 - Las transacciones deben asociarse a una categoría y deben respetar los límites definidos en los presupuestos.
 - Los pagos recurrentes serán automáticos según la frecuencia establecida, pero los usuarios podrán cancelarlos en cualquier momento.
-
-# Estado del Proyecto 📆
-
-| Tarea | Descripción | Estado |
-|-------|-------------|--------|
-| **Diseño de la Arquitectura** | Proporcionar más claridad del funcionamiento. | ⬜️ En Proceso |

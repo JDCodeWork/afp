@@ -26,8 +26,8 @@ export class CommonService {
         throw new NotFoundException(ErrorMessages.CategoryNotFound);
       case ErrorCodes.TransactionNotFound:
         throw new NotFoundException(ErrorMessages.TransactionNotFound);
-      case ErrorCodes.UnauthorizedCategoryRequest:
-        throw new ForbiddenException(ErrorMessages.UnauthorizedCategoryRequest);
+      case ErrorCodes.UnauthorizedRequest:
+        throw new ForbiddenException(ErrorMessages.UnauthorizedRequest);
       case ErrorCodes.FilterTransactionRequired:
         throw new BadRequestException(ErrorMessages.FilterTransactionRequired);
       default:

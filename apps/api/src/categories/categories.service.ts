@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Delete, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CommonService } from '../common/common.service';
 import { ErrorCodes } from '../common/interfaces/error-codes.interface';
-import { ErrorMessages } from '../common/interfaces/error-messges.interface';
 import { User } from '../users/entities/user.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -31,8 +30,21 @@ export class CategoriesService {
     }
   }
 
-  async findOne(id: number) {
-    return await this.categoryRepository.findOneBy({ id });
+  async findOne(id: number, user?: User) {
+    const category = await this.categoryRepository.findOne({
+      where: { id },
+      relations: { user: true },
+    });
+
+    if (!category) this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
+
+    if (category.user && category.user.id != user.id) {
+      this.commonService.handleErrors(ErrorCodes.UnauthorizedRequest);
+    }
+
+    delete category.user;
+
+    return category;
   }
 
   async findAll(user: User) {
@@ -82,6 +94,6 @@ export class CategoriesService {
     if (!category) this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
 
     if (category.default || category.user.id != user.id)
-      this.commonService.handleErrors(ErrorCodes.UnauthorizedCategoryRequest);
+      this.commonService.handleErrors(ErrorCodes.UnauthorizedRequest);
   }
 }

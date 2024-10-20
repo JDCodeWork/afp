@@ -1,3 +1,4 @@
+import { Budget } from '../../budgets/entities/budget.entity';
 import { Transaction } from '../../transactions/entities';
 import { User } from '../../users/entities/user.entity';
 import {
@@ -28,6 +29,9 @@ export class Category {
 
   @OneToMany(() => Transaction, (transaction) => transaction.category)
   transactions?: Transaction[];
+
+  @ManyToOne(() => Budget, (budget) => budget.category)
+  budgets?: Budget[];
 
   @BeforeInsert()
   verifyDefaultState() {
