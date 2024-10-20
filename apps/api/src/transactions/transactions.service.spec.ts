@@ -71,14 +71,6 @@ describe('TransactionsService', () => {
     ).resolves.toEqual(transactionFixture);
   });
 
-  it('should not create if category does not exist', async () => {
-    jest.spyOn(mockCategoriesService, 'findOne').mockResolvedValue(null);
-
-    await expect(
-      service.create(createTransactionFixture, userEntityFixture),
-    ).rejects.toThrow(ErrorMessages.CategoryNotFound);
-  });
-
   it('should find all transactions', async () => {
     jest
       .spyOn(mockTransactionRepository, 'findBy')
@@ -120,14 +112,6 @@ describe('TransactionsService', () => {
     await expect(
       service.update(transactionFixture.id, updateTransactionFixture),
     ).resolves.toEqual(transactionFixture);
-  });
-
-  it('should not update transaction if category does not exist', async () => {
-    jest.spyOn(mockCategoriesService, 'findOne').mockResolvedValue(null);
-
-    await expect(
-      service.update(transactionFixture.id, updateTransactionFixture),
-    ).rejects.toThrow(ErrorMessages.CategoryNotFound);
   });
 
   it('should not update transaction if transaction does not exist', async () => {

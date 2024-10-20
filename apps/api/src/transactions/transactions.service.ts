@@ -26,8 +26,6 @@ export class TransactionsService {
 
     const category = await this.categoriesService.findOne(categoryId);
 
-    if (!category) this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
-
     if (!transactionDetails.create_at)
       transactionDetails.create_at = new Date();
 
@@ -126,9 +124,6 @@ export class TransactionsService {
 
     if (categoryId) {
       const category = await this.categoriesService.findOne(categoryId);
-
-      if (!category)
-        this.commonService.handleErrors(ErrorCodes.CategoryNotFound);
 
       (transactionsDetails as Transaction).category = category;
     }
