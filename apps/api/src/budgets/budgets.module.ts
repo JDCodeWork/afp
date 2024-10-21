@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { BudgetsService } from './budgets.service';
 import { BudgetsController } from './budgets.controller';
-import { AuthModule } from 'src/auth/auth.module';
-import { CommonModule } from 'src/common/common.module';
-import { CategoriesModule } from 'src/categories/categories.module';
+import { AuthModule } from '@/auth/auth.module';
+import { CommonModule } from '@/common/common.module';
+import { CategoriesModule } from '@/categories/categories.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Budget } from './entities/budget.entity';
+import { TransactionsModule } from '@/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { Budget } from './entities/budget.entity';
     AuthModule,
     CommonModule,
     CategoriesModule,
+    TransactionsModule,
   ],
   controllers: [BudgetsController],
   providers: [BudgetsService],

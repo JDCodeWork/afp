@@ -16,7 +16,7 @@ export class Budget {
   @Column({ type: 'date' })
   end_date: Date;
 
-  @ManyToOne(() => Category, (category) => category.budgets)
+  @ManyToOne(() => Category, (category) => category.budgets, { eager: true })
   category: Category;
 
   @ManyToOne(() => User, (user) => user.budgets)

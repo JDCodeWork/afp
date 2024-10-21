@@ -1,6 +1,6 @@
-import { Budget } from '../../budgets/entities/budget.entity';
-import { Category } from '../../categories/entities/category.entity';
-import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Budget } from '@/budgets/entities/budget.entity';
+import { Category } from '@/categories/entities/category.entity';
+import { Transaction } from '@/transactions/entities/transaction.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

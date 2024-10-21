@@ -56,9 +56,8 @@ export class TransactionsService {
   ) {
     const query = this.transactionRepository
       .createQueryBuilder('transaction')
-      .leftJoinAndSelect('transaction.category', 'category')
-      .leftJoinAndSelect('transaction.user', 'user')
-      .select(['transaction', 'category']);
+      .leftJoin('transaction.category', 'category')
+      .leftJoin('transaction.user', 'user');
 
     if (Object.keys(filterDto).length < 1)
       this.commonService.handleErrors(ErrorCodes.FilterTransactionRequired);
@@ -84,9 +83,8 @@ export class TransactionsService {
   ) {
     const query = this.transactionRepository
       .createQueryBuilder('transaction')
-      .leftJoinAndSelect('transaction.user', 'user')
       .leftJoinAndSelect('transaction.category', 'category')
-      .select(['transaction', 'category']);
+      .leftJoin('transaction.user', 'user');
 
     if (Object.keys(filterDto).length < 1)
       this.commonService.handleErrors(ErrorCodes.FilterTransactionRequired);

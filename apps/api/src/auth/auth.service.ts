@@ -40,8 +40,7 @@ export class AuthService {
 
     const user = await this.usersService.findOneByEmail(email);
 
-    if (!user)
-      this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
+    if (!user) this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
     const isCorrectPassword = bcrypt.compareSync(
       loginUserDto.password,

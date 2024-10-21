@@ -1,5 +1,5 @@
-import { CreateTransactionDto } from 'src/transactions/dto';
-import { Transaction } from '../transactions/entities';
+import { CreateTransactionDto } from '@/transactions/dto';
+import { Transaction } from '@/transactions/entities';
 import { userEntityFixture } from './auth.fixture';
 import {
   expenseCategoryFixture,
