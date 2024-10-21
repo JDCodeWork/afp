@@ -5,7 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CommonModule } from './common/common.module';
-import { UsersModule } from './users/users.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { SeedModule } from './seed/seed.module';
 import { CategoriesModule } from './categories/categories.module';
@@ -29,7 +28,6 @@ import { BudgetsModule } from './budgets/budgets.module';
       rootPath: join(__dirname, '../../', 'client/dist'),
     }),
     CommonModule,
-    UsersModule,
     TransactionsModule,
     SeedModule,
     CategoriesModule,

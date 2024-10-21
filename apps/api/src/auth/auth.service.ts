@@ -4,8 +4,8 @@ import * as bcrypt from 'bcrypt';
 
 import { ErrorCodes } from '../common/interfaces/error-codes.interface';
 
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersService } from './users.service';
 
 import { LoginUserDto } from './dto/login-user.dto';
 import { CommonService } from '../common/common.service';

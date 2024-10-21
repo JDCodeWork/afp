@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserDto } from '../../auth/dto/create-user.dto';
 
 export const dataUsers: CreateUserDto[] = [
   {

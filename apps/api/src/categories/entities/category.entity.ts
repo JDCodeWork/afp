@@ -1,6 +1,6 @@
 import { Budget } from '../../budgets/entities/budget.entity';
 import { Transaction } from '../../transactions/entities';
-import { User } from '../../users/entities/user.entity';
+import { User } from '../../auth/entities/user.entity';
 import {
   BeforeInsert,
   Column,

@@ -14,7 +14,7 @@ import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators/get-user.decorator';
-import { User } from '../users/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 
 @Controller('budgets')
 @UseGuards(AuthGuard())

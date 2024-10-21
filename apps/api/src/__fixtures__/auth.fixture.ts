@@ -1,6 +1,6 @@
 import { LoginUserDto } from '../auth/dto/login-user.dto';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { User } from '../users/entities/user.entity';
+import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { User } from '../auth/entities/user.entity';
 
 export const userEntityFixture: User = {
   id: '1',

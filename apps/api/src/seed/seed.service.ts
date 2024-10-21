@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AuthService } from '@/auth/auth.service';
 import { CategoriesService } from '@/categories/categories.service';
 import { TransactionsService } from '@/transactions/transactions.service';
-import { User } from '@/users/entities/user.entity';
+import { User } from '@/auth/entities/user.entity';
 import { categories } from './data/categories.data';
 import { pepitoTransactions } from './data/transactions.data';
 import { dataUsers } from './data/users.data';

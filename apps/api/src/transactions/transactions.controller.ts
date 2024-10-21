@@ -15,7 +15,7 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators/get-user.decorator';
-import { User } from '../users/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
 import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';
 

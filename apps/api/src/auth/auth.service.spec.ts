@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 
 import { AuthService } from './auth.service';
 import { CommonService } from '../common/common.service';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './users.service';
 import {
   createUserFixture,
   loginUserFixture,

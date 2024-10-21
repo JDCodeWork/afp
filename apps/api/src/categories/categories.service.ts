@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CommonService } from '../common/common.service';
 import { ErrorCodes } from '../common/interfaces/error-codes.interface';
-import { User } from '../users/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';

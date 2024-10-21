@@ -5,7 +5,7 @@ import { CreateTransactionDto, UpdateTransactionDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommonService } from '../common/common.service';
 import { ErrorCodes } from '../common/interfaces/error-codes.interface';
-import { User } from '../users/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 import { CategoriesService } from '../categories/categories.service';
 import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
 import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';

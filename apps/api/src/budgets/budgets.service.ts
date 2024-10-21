@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
-import { User } from '@/users/entities/user.entity';
+import { User } from '@/auth/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Budget } from './entities/budget.entity';
 import { Repository } from 'typeorm';
