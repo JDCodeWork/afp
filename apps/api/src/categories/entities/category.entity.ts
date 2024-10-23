@@ -15,11 +15,11 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text', unique: true })
+  @Column({ type: 'text' })
   name: string;
 
   @Column({ type: 'text' })
-  type: 'expense' | 'income';
+  type: 'expense' | 'income' | 'goal';
 
   @Column({ type: 'bool', default: true })
   default: boolean;

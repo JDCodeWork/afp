@@ -9,6 +9,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { SeedModule } from './seed/seed.module';
 import { CategoriesModule } from './categories/categories.module';
 import { BudgetsModule } from './budgets/budgets.module';
+import { GoalsModule } from './goals/goals.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { BudgetsModule } from './budgets/budgets.module';
     SeedModule,
     CategoriesModule,
     BudgetsModule,
+    GoalsModule,
   ],
 })
 export class AppModule {}

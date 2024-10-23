@@ -1,5 +1,6 @@
 import { Budget } from '@/budgets/entities/budget.entity';
 import { Category } from '@/categories/entities/category.entity';
+import { Goal } from '@/goals/entities/goal.entity';
 import { Transaction } from '@/transactions/entities/transaction.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -27,5 +28,8 @@ export class User {
 
   @OneToMany(() => Budget, (budget) => budget.user)
   budgets?: Budget[];
+
+  @OneToMany(() => Goal, (goal) => goal.user)
+  goals?: Goal[];
   // TODO Realizar relaciones con las demás entidades
 }

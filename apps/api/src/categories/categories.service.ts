@@ -17,14 +17,23 @@ export class CategoriesService {
     private readonly commonService: CommonService,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto, user?: User) {
-    const category = this.categoryRepository.create({
+  async create(createCategoryDto: CreateCategoryDto, user: User) {
+    const category = await this.categoryRepository.findOneBy({
+      name: createCategoryDto.name,
+      user,
+    });
+
+    if (category) this.commonService.handleErrors(ErrorCodes.KeyAlreadyExist);
+
+    const newCategory = this.categoryRepository.create({
       ...createCategoryDto,
-      ...(user && { user }),
+      user,
     });
 
     try {
-      await this.categoryRepository.save(category);
+      await this.categoryRepository.save(newCategory);
+
+      return newCategory;
     } catch (error) {
       this.commonService.handleErrors(error);
     }

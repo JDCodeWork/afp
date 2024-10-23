@@ -5,6 +5,6 @@ export class CreateCategoryDto {
   name: string;
 
   @IsString()
-  @IsIn(['expense', 'income'])
-  type: 'expense' | 'income';
+  @IsIn(['expense', 'income', 'goal'])
+  type: 'expense' | 'income' | 'goal';
 }

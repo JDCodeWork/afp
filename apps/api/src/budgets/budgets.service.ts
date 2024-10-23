@@ -25,6 +25,13 @@ export class BudgetsService {
   async create(createBudgetDto: CreateBudgetDto, user: User) {
     const { category: categoryId, ...budgetDetails } = createBudgetDto;
 
+    const budget = await this.budgetRepository.findOneBy({
+      name: budgetDetails.name,
+      user,
+    });
+
+    if (budget) this.commonService.handleErrors(ErrorCodes.KeyAlreadyExist);
+
     const category = await this.categoriesService.findOne(categoryId, user);
 
     try {
