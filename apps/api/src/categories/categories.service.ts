@@ -39,7 +39,7 @@ export class CategoriesService {
     }
   }
 
-  async findOne(id: number, user?: User) {
+  async findOne(id: number, user: User) {
     const category = await this.categoryRepository.findOne({
       where: { id },
       relations: { user: true },

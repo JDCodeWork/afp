@@ -23,11 +23,6 @@ export class Transaction {
   @Column({ type: 'timestamp', default: new Date() })
   create_at: Date;
 
-  @ManyToOne(() => Goal, (goal) => goal.transactions, {
-    onDelete: 'CASCADE',
-  })
-  goal?: Goal;
-
   @ManyToOne(() => User, (user) => user.transactions, {
     onDelete: 'CASCADE',
   })

@@ -4,6 +4,7 @@ export enum ErrorCodes {
   CategoryNotFound = '10',
   TransactionNotFound = '11',
   BudgetNotFound = '12',
+  GoalNotFound = '13',
   UnauthorizedRequest = '20',
   FilterTransactionRequired = '30',
   KeyAlreadyExist = '23505',

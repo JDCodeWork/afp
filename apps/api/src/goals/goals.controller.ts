@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { GoalsService } from './goals.service';
 import { CreateGoalDto } from './dto/create-goal.dto';
@@ -27,12 +28,12 @@ export class GoalsController {
 
   @Get()
   findAll(@GetUser() user: User) {
-    return this.goalsService.findAll();
+    return this.goalsService.findAll(user);
   }
 
   @Get(':id')
-  findOne(@GetUser() user: User, @Param('id') id: string) {
-    return this.goalsService.findOne(+id);
+  findOne(@GetUser() user: User, @Param('id', ParseIntPipe) id: number) {
+    return this.goalsService.findOne(id, user);
   }
 
   @Patch(':id')

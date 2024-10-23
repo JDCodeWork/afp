@@ -1,10 +1,12 @@
 import { User } from '@/auth/entities/user.entity';
+import { Category } from '@/categories/entities/category.entity';
 import { Transaction } from '@/transactions/entities';
 import {
   Column,
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,12 +17,12 @@ export class Goal {
 
   @Column({ type: 'text' })
   name: string;
-  
+
   @Column({ type: 'double precision' })
   target_amount: number;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.goal)
-  transactions?: Transaction[];
+  @Column({ type: 'integer', unique: true })
+  category: number;
 
   @ManyToOne(() => User, (user) => user.goals)
   user: User;

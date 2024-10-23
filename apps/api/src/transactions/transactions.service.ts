@@ -24,7 +24,7 @@ export class TransactionsService {
     const { category: categoryId, ...transactionDetails } =
       createTransactionDto;
 
-    const category = await this.categoriesService.findOne(categoryId);
+    const category = await this.categoriesService.findOne(categoryId, user);
 
     if (!transactionDetails.create_at)
       transactionDetails.create_at = new Date();
@@ -121,7 +121,10 @@ export class TransactionsService {
       updateTransactionDto;
 
     if (categoryId) {
-      const category = await this.categoriesService.findOne(categoryId);
+      const category = await this.categoriesService.findOne(
+        categoryId,
+        undefined,
+      );
 
       (transactionsDetails as Transaction).category = category;
     }

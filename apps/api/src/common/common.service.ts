@@ -28,6 +28,8 @@ export class CommonService {
         throw new NotFoundException(ErrorMessages.TransactionNotFound);
       case ErrorCodes.BudgetNotFound:
         throw new NotFoundException(ErrorMessages.BudgetNotFound);
+      case ErrorCodes.GoalNotFound:
+        throw new NotFoundException(ErrorMessages.GoalNotFound);
       case ErrorCodes.UnauthorizedRequest:
         throw new ForbiddenException(ErrorMessages.UnauthorizedRequest);
       case ErrorCodes.FilterTransactionRequired:

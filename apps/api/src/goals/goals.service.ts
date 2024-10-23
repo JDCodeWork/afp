@@ -4,10 +4,12 @@ import { UpdateGoalDto } from './dto/update-goal.dto';
 import { User } from '@/auth/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Goal } from './entities/goal.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CommonService } from '@/common/common.service';
 import { ErrorCodes } from '@/common/interfaces';
 import { CategoriesService } from '@/categories/categories.service';
+import { Category } from '@/categories/entities/category.entity';
+import { Transaction } from '@/transactions/entities';
 
 @Injectable()
 export class GoalsService {
@@ -16,6 +18,7 @@ export class GoalsService {
 
     private readonly commonService: CommonService,
     private readonly categoriesService: CategoriesService,
+    private readonly dataSource: DataSource,
   ) {}
 
   async create(createGoalDto: CreateGoalDto, user: User) {
@@ -28,34 +31,59 @@ export class GoalsService {
 
     if (goal) this.commonService.handleErrors(ErrorCodes.KeyAlreadyExist);
 
-    const newGoal = this.goalRepository.create({
-      ...createGoalDto,
-      user,
-    });
-
-    await this.categoriesService.create(
+    const category = await this.categoriesService.create(
       {
         name,
         type: 'goal',
       },
       user,
     );
+    const newGoal = this.goalRepository.create({
+      ...createGoalDto,
+      category: category.id,
+      user,
+    });
 
     try {
       await this.goalRepository.save(newGoal);
 
-      return { ...newGoal };
+      return newGoal;
     } catch (error) {
       this.commonService.handleErrors(error.code);
     }
   }
 
-  findAll() {
-    return `This action returns all goals`;
+  async findAll(user: User) {
+    return await this.dataSource
+      .createQueryBuilder(Goal, 'goal')
+      .leftJoinAndMapOne(
+        'goal.category',
+        Category,
+        'category',
+        'category.name = goal.name AND category.user.id = :userId',
+        { userId: user.id },
+      )
+      .select(['goal', 'category.id'])
+      .where('goal.user.id = :userId', { userId: user.id })
+      .getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} goal`;
+  async findOne(id: number, user: User) {
+    const goal = await this.dataSource
+      .createQueryBuilder(Goal, 'goal')
+      .leftJoinAndMapMany(
+        'goal.transactions',
+        Transaction,
+        'transaction',
+        'transaction.category.id = goal.category',
+      )
+      .where('goal.user.id = :userId', { userId: user.id })
+      .andWhere('goal.id = :id', { id })
+      .getOne();
+
+    if (!goal) this.commonService.handleErrors(ErrorCodes.GoalNotFound);
+
+    return goal;
   }
 
   update(id: number, updateGoalDto: UpdateGoalDto) {

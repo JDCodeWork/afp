@@ -10,6 +10,6 @@ import { CommonModule } from '../common/common.module';
   imports: [TypeOrmModule.forFeature([Category]), AuthModule, CommonModule],
   controllers: [CategoriesController],
   providers: [CategoriesService],
-  exports: [CategoriesService],
+  exports: [CategoriesService, TypeOrmModule],
 })
 export class CategoriesModule {}
