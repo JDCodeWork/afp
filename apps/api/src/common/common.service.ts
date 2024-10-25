@@ -1,45 +1,38 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { ErrorCodes } from './interfaces/error-codes.interface';
-import { ErrorMessages } from './interfaces/error-messges.interface';
+import { Injectable, Logger } from '@nestjs/common';
+import { ErrorCodes as EC } from './interfaces/error-codes.interface';
+import { getExceptionForErrorCode } from './configs/errors.config';
+import { MESSAGES } from './constants/error-message.constant';
 
 @Injectable()
 export class CommonService {
-  private loggerInstance = new Logger('Common');
+  private logger = new Logger('Common');
 
-  handleErrors(error: ErrorCodes) {
-    switch (error) {
-      case ErrorCodes.KeyAlreadyExist:
-        throw new BadRequestException(ErrorMessages.KeyAlreadyExist);
-      case ErrorCodes.CredentialsNotValid:
-        throw new UnauthorizedException(ErrorMessages.CredentialsNotValid);
-      case ErrorCodes.TokenNotValid:
-        throw new UnauthorizedException(ErrorMessages.TokenNotValid);
-      case ErrorCodes.CategoryNotFound:
-        throw new NotFoundException(ErrorMessages.CategoryNotFound);
-      case ErrorCodes.TransactionNotFound:
-        throw new NotFoundException(ErrorMessages.TransactionNotFound);
-      case ErrorCodes.BudgetNotFound:
-        throw new NotFoundException(ErrorMessages.BudgetNotFound);
-      case ErrorCodes.GoalNotFound:
-        throw new NotFoundException(ErrorMessages.GoalNotFound);
-      case ErrorCodes.UnauthorizedRequest:
-        throw new ForbiddenException(ErrorMessages.UnauthorizedRequest);
-      case ErrorCodes.FilterTransactionRequired:
-        throw new BadRequestException(ErrorMessages.FilterTransactionRequired);
-      default:
-        this.loggerInstance.error(error);
-
-        throw new InternalServerErrorException(
-          'Error inesperado, hable con el administrador',
-        );
+  public static loadErrors() {
+    for (const [CodeKey, CodeNumber] of Object.entries(EC)) {
+      console.log({ CodeKey, CodeNumber });
     }
   }
+
+  handleErrors(error: EC, language?: string) {
+    const ExceptionClass = getExceptionForErrorCode(error);
+
+    if (ExceptionClass) {
+      throw new ExceptionClass(this.getErrorMessage(error, language));
+    } else {
+      const UnKnowException = getExceptionForErrorCode(EC.UnKnowException);
+
+      this.logger.error(error);
+      throw new UnKnowException(
+        this.getErrorMessage(EC.UnKnowException, language),
+      );
+    }
+  }
+
+  private getErrorMessage(errorCode: EC, language: string = 'es'): string {
+    const messages = MESSAGES[errorCode];
+
+    return messages[language] || messages['es'];
+  }
 }
+
+CommonService.loadErrors();

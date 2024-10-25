@@ -54,7 +54,7 @@ export class GoalsService {
   }
 
   async findAll(user: User) {
-    return await this.dataSource
+    return this.dataSource
       .createQueryBuilder(Goal, 'goal')
       .leftJoinAndMapOne(
         'goal.category',

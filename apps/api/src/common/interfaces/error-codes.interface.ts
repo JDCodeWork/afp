@@ -8,4 +8,6 @@ export enum ErrorCodes {
   UnauthorizedRequest = '20',
   FilterTransactionRequired = '30',
   KeyAlreadyExist = '23505',
+  UnKnowException = '99999',
 }
+
