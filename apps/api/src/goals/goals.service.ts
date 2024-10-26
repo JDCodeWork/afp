@@ -10,15 +10,17 @@ import { ErrorCodes } from '@/common/interfaces';
 import { CategoriesService } from '@/categories/categories.service';
 import { Category } from '@/categories/entities/category.entity';
 import { Transaction } from '@/transactions/entities';
+import { TransactionsService } from '@/transactions/transactions.service';
 
 @Injectable()
 export class GoalsService {
   constructor(
     @InjectRepository(Goal) private readonly goalRepository: Repository<Goal>,
+    private readonly dataSource: DataSource,
 
     private readonly commonService: CommonService,
     private readonly categoriesService: CategoriesService,
-    private readonly dataSource: DataSource,
+    private readonly transactionsService: TransactionsService,
   ) {}
 
   async create(createGoalDto: CreateGoalDto, user: User) {
@@ -86,11 +88,38 @@ export class GoalsService {
     return goal;
   }
 
-  update(id: number, updateGoalDto: UpdateGoalDto) {
-    return `This action updates a #${id} goal`;
+  async update(id: number, updateGoalDto: UpdateGoalDto = {}, user: User) {
+    const goalToUpdate = await this.goalRepository.findOneBy({ id, user });
+
+    if (!goalToUpdate) this.commonService.handleErrors(ErrorCodes.GoalNotFound);
+
+    if (updateGoalDto.name && goalToUpdate.name != updateGoalDto.name) {
+      await this.categoriesService.update(
+        goalToUpdate.category,
+        {
+          name: updateGoalDto.name,
+        },
+        user,
+      );
+    }
+
+    const updatedGoal = await this.goalRepository.save({
+      ...goalToUpdate,
+      ...updateGoalDto,
+    });
+
+    return updatedGoal;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} goal`;
+  async remove(id: number, user: User) {
+    const goal = await this.goalRepository.findOneBy({ id, user });
+
+    if (!goal) this.commonService.handleErrors(ErrorCodes.GoalNotFound);
+
+    await this.transactionsService.refoundToAccount(goal.category, user);
+
+    await this.categoriesService.remove(goal.category, user);
+
+    await this.goalRepository.delete(goal);
   }
 }

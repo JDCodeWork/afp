@@ -7,12 +7,6 @@ import { MESSAGES } from './constants/error-message.constant';
 export class CommonService {
   private logger = new Logger('Common');
 
-  public static loadErrors() {
-    for (const [CodeKey, CodeNumber] of Object.entries(EC)) {
-      console.log({ CodeKey, CodeNumber });
-    }
-  }
-
   handleErrors(error: EC, language?: string) {
     const ExceptionClass = getExceptionForErrorCode(error);
 
@@ -34,5 +28,3 @@ export class CommonService {
     return messages[language] || messages['es'];
   }
 }
-
-CommonService.loadErrors();

@@ -10,4 +10,3 @@ export enum ErrorCodes {
   KeyAlreadyExist = '23505',
   UnKnowException = '99999',
 }
-

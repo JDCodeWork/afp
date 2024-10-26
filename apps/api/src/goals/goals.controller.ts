@@ -39,14 +39,14 @@ export class GoalsController {
   @Patch(':id')
   update(
     @GetUser() user: User,
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateGoalDto: UpdateGoalDto,
   ) {
-    return this.goalsService.update(+id, updateGoalDto);
+    return this.goalsService.update(id, updateGoalDto, user);
   }
 
   @Delete(':id')
-  remove(@GetUser() user: User, @Param('id') id: string) {
-    return this.goalsService.remove(+id);
+  remove(@GetUser() user: User, @Param('id', ParseIntPipe) id: number) {
+    return this.goalsService.remove(id, user);
   }
 }

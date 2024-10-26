@@ -153,4 +153,27 @@ export class TransactionsService {
 
     await this.transactionRepository.remove(transaction);
   }
+
+  async refoundToAccount(categoryId: number, user: User) {
+    // TODO changue hardcode categoryId
+    const refoundCategory = await this.categoriesService.findOne(8, user);
+
+    const transactions = await this.transactionRepository.findBy({
+      category: { id: categoryId },
+      user,
+    });
+
+    if (transactions.length == 0) return;
+
+    const updatedTransactions = transactions.map((transaction) => {
+      transaction.category = refoundCategory;
+      return transaction;
+    });
+
+    try {
+      await this.transactionRepository.save(updatedTransactions);
+    } catch (error) {
+      this.commonService.handleErrors(error.code);
+    }
+  }
 }

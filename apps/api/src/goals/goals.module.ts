@@ -6,6 +6,7 @@ import { Goal } from './entities/goal.entity';
 import { CommonModule } from '@/common/common.module';
 import { AuthModule } from '@/auth/auth.module';
 import { CategoriesModule } from '@/categories/categories.module';
+import { TransactionsModule } from '@/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CategoriesModule } from '@/categories/categories.module';
     CommonModule,
     AuthModule,
     CategoriesModule,
+    TransactionsModule,
   ],
   controllers: [GoalsController],
   providers: [GoalsService],
