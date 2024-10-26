@@ -1,6 +1,7 @@
 import { Budget } from '@/budgets/entities/budget.entity';
 import { Category } from '@/categories/entities/category.entity';
 import { Goal } from '@/goals/entities/goal.entity';
+import { ScheduledPayment } from '@/scheduled-payments/entities/scheduled-payment.entity';
 import { Transaction } from '@/transactions/entities/transaction.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -31,5 +32,7 @@ export class User {
 
   @OneToMany(() => Goal, (goal) => goal.user)
   goals?: Goal[];
-  // TODO Realizar relaciones con las demás entidades
+
+  @OneToMany(() => ScheduledPayment, (sP) => sP.user)
+  scheduledPayments?: ScheduledPayment[];
 }

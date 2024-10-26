@@ -13,8 +13,7 @@ import {
   userEntityFixture,
   userFixture,
 } from '../__fixtures__/auth.fixture';
-
-import { ErrorMessages } from '../common/interfaces/error-messges.interface';
+import { ErrorCodes } from '@/common/interfaces';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -76,7 +75,7 @@ describe('AuthService', () => {
     jest.spyOn(mockUsersService, 'findOneByEmail').mockResolvedValue(null);
 
     await expect(authService.login(loginUserFixture)).rejects.toThrow(
-      ErrorMessages.CredentialsNotValid,
+      CommonService.getErrorMessage(ErrorCodes.CredentialsNotValid),
     );
   });
 
@@ -87,7 +86,7 @@ describe('AuthService', () => {
     jest.spyOn(bcrypt, 'compareSync').mockReturnValue(false);
 
     await expect(authService.login(loginUserFixture)).rejects.toThrow(
-      ErrorMessages.CredentialsNotValid,
+      CommonService.getErrorMessage(ErrorCodes.CredentialsNotValid),
     );
   });
 });

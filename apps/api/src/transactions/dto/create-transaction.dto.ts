@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsBoolean,
   IsDateString,
   IsInt,
   IsOptional,
@@ -18,6 +18,10 @@ export class CreateTransactionDto {
   @IsInt()
   @IsPositive()
   category: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isScheduled?: boolean;
 
   @IsOptional()
   @IsDateString()

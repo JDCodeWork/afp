@@ -1,14 +1,5 @@
 import { User } from '@/auth/entities/user.entity';
-import { Category } from '@/categories/entities/category.entity';
-import { Transaction } from '@/transactions/entities';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Goal {

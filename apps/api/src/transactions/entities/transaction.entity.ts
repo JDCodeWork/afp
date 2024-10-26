@@ -1,7 +1,6 @@
 import { Category } from '../../categories/entities/category.entity';
 import { User } from '../../auth/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Goal } from '@/goals/entities/goal.entity';
 
 @Entity()
 export class Transaction {
@@ -13,6 +12,9 @@ export class Transaction {
 
   @Column({ type: 'text', default: '' })
   note?: string;
+
+  @Column({ type: 'boolean', default: false })
+  isScheduled?: boolean;
 
   @ManyToOne(() => Category, (category) => category.transactions, {
     eager: true,

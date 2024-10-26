@@ -2,7 +2,7 @@ import { IsPositive, IsString, MinLength } from 'class-validator';
 
 export class CreateGoalDto {
   @IsString()
-  @MinLength(6)
+  @MinLength(4)
   name: string;
 
   @IsPositive()

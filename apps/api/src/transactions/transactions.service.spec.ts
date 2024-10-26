@@ -8,14 +8,13 @@ import {
   transactionFixture,
   updateTransactionFixture,
   userEntityFixture,
-  userFixture,
 } from '../__fixtures__';
 
 import { CommonService } from '../common/common.service';
-import { ErrorMessages } from '../common/interfaces/';
 import { CategoriesService } from '../categories/categories.service';
 import { TransactionsService } from './transactions.service';
 import { Transaction } from './entities';
+import { ErrorCodes } from '@/common/interfaces';
 
 describe('TransactionsService', () => {
   let service: TransactionsService;
@@ -97,7 +96,9 @@ describe('TransactionsService', () => {
 
     await expect(
       service.findOne(transactionFixture.id, userEntityFixture),
-    ).rejects.toThrow(ErrorMessages.TransactionNotFound);
+    ).rejects.toThrow(
+      CommonService.getErrorMessage(ErrorCodes.TransactionNotFound),
+    );
   });
 
   it('should update transaction', async () => {
@@ -123,7 +124,9 @@ describe('TransactionsService', () => {
 
     await expect(
       service.update(transactionFixture.id, updateTransactionFixture),
-    ).rejects.toThrow(ErrorMessages.TransactionNotFound);
+    ).rejects.toThrow(
+      CommonService.getErrorMessage(ErrorCodes.TransactionNotFound),
+    );
   });
 
   it('should remove transaction', async () => {
@@ -141,6 +144,8 @@ describe('TransactionsService', () => {
 
     await expect(
       service.remove(transactionFixture.id, userEntityFixture),
-    ).rejects.toThrow(ErrorMessages.TransactionNotFound);
+    ).rejects.toThrow(
+      CommonService.getErrorMessage(ErrorCodes.TransactionNotFound),
+    );
   });
 });

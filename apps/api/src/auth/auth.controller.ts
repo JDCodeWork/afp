@@ -17,5 +17,5 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  //TODO: Make singUp and signIn by Google
+  // TODO Make singUp and signIn by Google
 }

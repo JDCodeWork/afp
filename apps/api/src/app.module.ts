@@ -10,6 +10,7 @@ import { SeedModule } from './seed/seed.module';
 import { CategoriesModule } from './categories/categories.module';
 import { BudgetsModule } from './budgets/budgets.module';
 import { GoalsModule } from './goals/goals.module';
+import { ScheduledPaymentsModule } from './scheduled-payments/scheduled-payments.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { GoalsModule } from './goals/goals.module';
     CategoriesModule,
     BudgetsModule,
     GoalsModule,
+    ScheduledPaymentsModule,
   ],
 })
 export class AppModule {}
