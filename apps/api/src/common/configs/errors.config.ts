@@ -15,6 +15,7 @@ const config: Record<EC, new (message: string) => Error> = {
   [EC.TransactionNotFound]: NotFoundException,
   [EC.BudgetNotFound]: NotFoundException,
   [EC.GoalNotFound]: NotFoundException,
+  [EC.ScheduledNotFound]: NotFoundException,
   [EC.UnauthorizedRequest]: ForbiddenException,
   [EC.FilterTransactionRequired]: BadRequestException,
   [EC.UnKnowException]: InternalServerErrorException,

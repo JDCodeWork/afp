@@ -13,7 +13,6 @@ import { ScheduledPaymentsService } from './scheduled-payments.service';
 import { CreateScheduledPaymentDto } from './dto/create-scheduled-payment.dto';
 import { UpdateScheduledPaymentDto } from './dto/update-scheduled-payment.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { CommonService } from '@/common/common.service';
 import { GetUser } from '@/auth/decorators/get-user.decorator';
 import { User } from '@/auth/entities/user.entity';
 
@@ -22,8 +21,6 @@ import { User } from '@/auth/entities/user.entity';
 export class ScheduledPaymentsController {
   constructor(
     private readonly scheduledPaymentsService: ScheduledPaymentsService,
-
-    private readonly commonService: CommonService,
   ) {}
 
   @Post()

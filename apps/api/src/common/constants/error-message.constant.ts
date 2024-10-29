@@ -25,6 +25,10 @@ export const MESSAGES: Record<EC, Record<string, string>> = {
     es: 'Meta no encontrada.',
     en: 'Goal not found.',
   },
+  [EC.ScheduledNotFound]: {
+    es: 'Pago recurrente no encontrado.',
+    en: 'Scheduled payment not found.',
+  },
   [EC.UnauthorizedRequest]: {
     es: 'Sin permisos para realizar esta acción.',
     en: 'No permission to perform this action.',

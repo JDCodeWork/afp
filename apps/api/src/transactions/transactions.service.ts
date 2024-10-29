@@ -9,6 +9,7 @@ import { User } from '../auth/entities/user.entity';
 import { CategoriesService } from '../categories/categories.service';
 import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
 import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';
+import { Category } from '@/categories/entities/category.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -175,5 +176,13 @@ export class TransactionsService {
     } catch (error) {
       this.commonService.handleErrors(error.code);
     }
+  }
+
+  findByScheduled(user: User, category: Category) {
+    return this.transactionRepository.findBy({
+      user,
+      category,
+      isScheduled: true,
+    });
   }
 }
