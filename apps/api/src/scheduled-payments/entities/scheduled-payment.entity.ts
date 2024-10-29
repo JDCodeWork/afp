@@ -1,6 +1,7 @@
 import { User } from '@/auth/entities/user.entity';
 import { Category } from '@/categories/entities/category.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Frequency } from '../constants/frequencies.constant';
 
 @Entity()
 export class ScheduledPayment {
@@ -8,13 +9,13 @@ export class ScheduledPayment {
   id: number;
 
   @Column({ type: 'text', default: 'monthly' })
-  frequency: string;
+  frequency: Frequency;
 
   @Column({ type: 'double precision' })
   amount: number;
 
   @Column({ type: 'timestamp' })
-  next: Date;
+  next: string;
 
   @Column({ type: 'text' })
   note: string;

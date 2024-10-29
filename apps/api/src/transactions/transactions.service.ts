@@ -185,4 +185,14 @@ export class TransactionsService {
       isScheduled: true,
     });
   }
+
+  createMany(transactions: Omit<Transaction, 'id'>[]) {
+    return transactions.map((transaction) =>
+      this.transactionRepository.create(transaction),
+    );
+  }
+
+  async saveMany(transactions: Transaction[]) {
+    return await this.transactionRepository.save(transactions);
+  }
 }

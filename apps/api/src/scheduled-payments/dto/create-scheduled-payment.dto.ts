@@ -17,7 +17,7 @@ export class CreateScheduledPaymentDto {
   amount: number;
 
   @IsDateString()
-  next: Date;
+  next: string;
 
   @IsPositive()
   @IsInt()

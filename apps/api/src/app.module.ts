@@ -11,6 +11,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { BudgetsModule } from './budgets/budgets.module';
 import { GoalsModule } from './goals/goals.module';
 import { ScheduledPaymentsModule } from './scheduled-payments/scheduled-payments.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -25,10 +26,11 @@ import { ScheduledPaymentsModule } from './scheduled-payments/scheduled-payments
       autoLoadEntities: true,
       synchronize: true,
     }),
-    AuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/dist'),
     }),
+    ScheduleModule.forRoot(),
+    AuthModule,
     CommonModule,
     TransactionsModule,
     SeedModule,

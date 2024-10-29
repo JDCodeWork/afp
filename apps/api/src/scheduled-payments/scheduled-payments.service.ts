@@ -1,18 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { CreateScheduledPaymentDto } from './dto/create-scheduled-payment.dto';
-import { UpdateScheduledPaymentDto } from './dto/update-scheduled-payment.dto';
 import { User } from '@/auth/entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ScheduledPayment } from './entities/scheduled-payment.entity';
-import { Repository } from 'typeorm';
-import { CommonService } from '@/common/common.service';
 import { CategoriesService } from '@/categories/categories.service';
+import { Category } from '@/categories/entities/category.entity';
+import { CommonService } from '@/common/common.service';
 import { ErrorCodes } from '@/common/interfaces';
 import { TransactionsService } from '@/transactions/transactions.service';
-import { Category } from '@/categories/entities/category.entity';
+import { Injectable, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateScheduledPaymentDto } from './dto/create-scheduled-payment.dto';
+import { UpdateScheduledPaymentDto } from './dto/update-scheduled-payment.dto';
+import { ScheduledPayment } from './entities/scheduled-payment.entity';
+
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class ScheduledPaymentsService {
+  private readonly logger = new Logger('ScheduledPayments');
+
   constructor(
     @InjectRepository(ScheduledPayment)
     private readonly scheduledRepository: Repository<ScheduledPayment>,
@@ -111,5 +116,74 @@ export class ScheduledPaymentsService {
     const scheduled = await this.scheduledRepository.findOneBy({ id, user });
 
     await this.scheduledRepository.remove(scheduled);
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async handleNewPayment() {
+    this.logger.log('Starting request for scheduled payments');
+
+    const today = new Date().toISOString().split('T')[0];
+
+    let upcomingPayments = await this.scheduledRepository.find({
+      where: { next: today },
+      relations: { user: true, category: true },
+    });
+
+    const newTransactions = [];
+
+    if (upcomingPayments.length > 0)
+      upcomingPayments = upcomingPayments.map((payment) => {
+        const { amount, category, user, note } = payment;
+
+        const newTransaction = {
+          create_at: new Date(),
+          isScheduled: true,
+          category,
+          user,
+          amount,
+          note,
+        };
+
+        newTransactions.push(newTransaction);
+
+        const dt = DateTime.now();
+
+        // TODO: Refactor this logic
+        switch (payment.frequency) {
+          case 'annual':
+            payment.next = dt.plus({ years: 1 }).toISO().split('T')[0];
+            break;
+          case 'semiannual':
+            payment.next = dt.plus({ months: 6 }).toISO().split('T')[0];
+            break;
+          case 'quarterly':
+            payment.next = dt.plus({ months: 3 }).toISO().split('T')[0];
+            break;
+          case 'monthly':
+            payment.next = dt.plus({ months: 1 }).toISO().split('T')[0];
+            break;
+          case 'biweekly':
+            payment.next = dt.plus({ weeks: 2 }).toISO().split('T')[0];
+            break;
+          default:
+            break;
+        }
+
+        return {
+          ...payment,
+        };
+      });
+
+    try {
+      const data = await this.transactionsService.saveMany(
+        this.transactionsService.createMany(newTransactions),
+      );
+
+      await this.scheduledRepository.save(upcomingPayments);
+
+      this.logger.log(`${data.length} payments have been complete`);
+    } catch (error) {
+      this.commonService.handleErrors(error.code);
+    }
   }
 }
