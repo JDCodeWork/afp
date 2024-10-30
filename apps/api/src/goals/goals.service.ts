@@ -111,12 +111,16 @@ export class GoalsService {
     return updatedGoal;
   }
 
-  async remove(id: number, user: User) {
+  async remove(id: number, user: User, refoundId?: number) {
     const goal = await this.goalRepository.findOneBy({ id, user });
 
     if (!goal) this.commonService.handleErrors(ErrorCodes.GoalNotFound);
 
-    await this.transactionsService.refoundToAccount(goal.category, user);
+    await this.transactionsService.refoundToAccount(
+      goal.category,
+      user,
+      refoundId,
+    );
 
     await this.categoriesService.remove(goal.category, user);
 

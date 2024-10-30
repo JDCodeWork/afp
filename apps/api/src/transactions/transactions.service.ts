@@ -155,9 +155,15 @@ export class TransactionsService {
     await this.transactionRepository.remove(transaction);
   }
 
-  async refoundToAccount(categoryId: number, user: User) {
-    // TODO changue hardcode categoryId
-    const refoundCategory = await this.categoriesService.findOne(8, user);
+  async refoundToAccount(
+    categoryId: number,
+    user: User,
+    refoundId: number = 8,
+  ) {
+    const refoundCategory = await this.categoriesService.findOne(
+      refoundId,
+      user,
+    );
 
     const transactions = await this.transactionRepository.findBy({
       category: { id: categoryId },

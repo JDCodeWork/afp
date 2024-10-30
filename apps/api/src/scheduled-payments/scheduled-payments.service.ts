@@ -13,6 +13,7 @@ import { UpdateScheduledPaymentDto } from './dto/update-scheduled-payment.dto';
 import { ScheduledPayment } from './entities/scheduled-payment.entity';
 
 import { DateTime } from 'luxon';
+import { Frequency } from './constants/frequencies.constant';
 
 @Injectable()
 export class ScheduledPaymentsService {
@@ -34,16 +35,35 @@ export class ScheduledPaymentsService {
     const { category: categoryId, ...scheduledDetails } =
       createScheduledPaymentDto;
 
+    const today = DateTime.now();
+
     const category = await this.categoriesService.findOne(categoryId, user);
 
     const newScheduledPayment = this.scheduledRepository.create({
       ...scheduledDetails,
-      create_at: new Date().toISOString(),
+      create_at: today.toISO(),
       category,
       user,
     });
 
-    // TODO Run job to check 'next' property to handle new transaction
+    // If next payment is today i make the transaction
+    if (scheduledDetails.next == today.toISO().split('T')[0]) {
+      await this.transactionsService.create(
+        {
+          amount: scheduledDetails.amount,
+          category: category.id,
+          note: scheduledDetails.note,
+          isScheduled: true,
+        },
+        user,
+      );
+
+      // Change next payment
+      newScheduledPayment.next = this.handleInterval(
+        newScheduledPayment.next,
+        newScheduledPayment.frequency,
+      );
+    }
 
     try {
       await this.scheduledRepository.save(newScheduledPayment);
@@ -122,16 +142,16 @@ export class ScheduledPaymentsService {
   async handleNewPayment() {
     this.logger.log('Starting request for scheduled payments');
 
-    const today = new Date().toISOString().split('T')[0];
+    const tomorrow = DateTime.now().plus({ day: 1 }).toISO().split('T')[0];
 
     let upcomingPayments = await this.scheduledRepository.find({
-      where: { next: today },
+      where: { next: tomorrow },
       relations: { user: true, category: true },
     });
 
     const newTransactions = [];
 
-    if (upcomingPayments.length > 0)
+    if (upcomingPayments.length > 0) {
       upcomingPayments = upcomingPayments.map((payment) => {
         const { amount, category, user, note } = payment;
 
@@ -146,33 +166,13 @@ export class ScheduledPaymentsService {
 
         newTransactions.push(newTransaction);
 
-        const dt = DateTime.now();
-
-        // TODO: Refactor this logic
-        switch (payment.frequency) {
-          case 'annual':
-            payment.next = dt.plus({ years: 1 }).toISO().split('T')[0];
-            break;
-          case 'semiannual':
-            payment.next = dt.plus({ months: 6 }).toISO().split('T')[0];
-            break;
-          case 'quarterly':
-            payment.next = dt.plus({ months: 3 }).toISO().split('T')[0];
-            break;
-          case 'monthly':
-            payment.next = dt.plus({ months: 1 }).toISO().split('T')[0];
-            break;
-          case 'biweekly':
-            payment.next = dt.plus({ weeks: 2 }).toISO().split('T')[0];
-            break;
-          default:
-            break;
-        }
+        payment.next = this.handleInterval(payment.next, payment.frequency);
 
         return {
           ...payment,
         };
       });
+    }
 
     try {
       const data = await this.transactionsService.saveMany(
@@ -185,5 +185,23 @@ export class ScheduledPaymentsService {
     } catch (error) {
       this.commonService.handleErrors(error.code);
     }
+  }
+
+  private handleInterval(next: string, frequency: Frequency) {
+    const nextTime = DateTime.fromISO(new Date(next).toISOString());
+
+    const paymentIntervals = {
+      annual: { years: 1 },
+      semiannual: { months: 6 },
+      quarterly: { months: 3 },
+      monthly: { months: 1 },
+      biweekly: { weeks: 2 },
+    };
+
+    const interval = paymentIntervals[frequency];
+
+    const time = nextTime.plus(interval).toISO();
+
+    return time.split('T')[0];
   }
 }
