@@ -20,7 +20,7 @@ export class ScheduledPayment {
   @Column({ type: 'text' })
   note: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: new Date() })
   create_at: Date;
 
   @Column({ type: 'boolean', default: true })

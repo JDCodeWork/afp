@@ -1,11 +1,10 @@
 {
-  "conventionalCommits.scopes": [
-    "Client",
-    "Api",
-    "Client and Api",
-    "Root"
-  ],
+  "conventionalCommits.scopes": ["Client", "Api", "Client and Api", "Root"],
   "exportall.config.folderListener": [
-    "/apps/api/src/transactions/entities"
+    "/apps/api/src/transactions/entities",
+    "/apps/client/src/shared",
+    "/apps/client/src/shared/components/ui",
+    "/apps/client/src/features/dashboard",
+    "/apps/client/src/features/auth"
   ]
 }
