@@ -1,0 +1,26 @@
+{
+  "login": {
+    "form-header": "Bienvenido",
+    "inputs": {
+      "email": {
+        "label": "Correo",
+        "placeholder": "Ingresa tu correo"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Ingresa tu contraseña"
+      }
+    },
+    "remember-me": "Recuérdame",
+    "forgot-password": "¿Olvidaste tu contraseña?",
+    "dont-have-account": {
+      "label": "¿No tienes una cuenta?",
+      "link": "Regístrate"
+    },
+    "submit": "ingresar",
+    "errors": {
+      "email": "El correo electrónico ingresado no es válido",
+      "password": "La contraseña no es segura."
+    }
+  }
+}

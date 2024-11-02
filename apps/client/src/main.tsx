@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { router } from '@/features/routes'
 import { ReduxToolkitProvider } from '@/shared/plugins/'
+import '@/shared/plugins/i18n'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

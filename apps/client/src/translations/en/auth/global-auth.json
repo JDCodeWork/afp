@@ -1,0 +1,26 @@
+{
+  "login": {
+    "form-header": "Welcome Back",
+    "inputs": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      }
+    },
+    "remember-me": "Remember me",
+    "forgot-password": "Forgot your password?",
+    "dont-have-account": {
+      "label": "Don't have an account?",
+      "link": "Sign up"
+    },
+    "submit": "login",
+    "errors": {
+      "email": "The entered email address is not valid.",
+      "password": "The password is not secure"
+    }
+  }
+}
