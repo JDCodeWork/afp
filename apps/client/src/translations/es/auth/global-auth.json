@@ -22,5 +22,26 @@
       "email": "El correo electrónico ingresado no es válido",
       "password": "La contraseña no es segura."
     }
+  },
+  "register": {
+    "form-header": "Únete",
+    "inputs": {
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Ingresa tu nombre de usuario"
+      },
+      "password": {
+        "description": "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula y  1 número"
+      }
+    },
+    "remember-me": "Recuérdame",
+    "have-account": {
+      "label": "¿Ya tienes una cuenta?",
+      "link": "Ingresa"
+    },
+    "submit": "registrarme",
+    "errors": {
+      "name": "El nombre es demasiado corto"
+    }
   }
 }

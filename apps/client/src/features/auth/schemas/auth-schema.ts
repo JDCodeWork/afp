@@ -10,3 +10,13 @@ export const loginSchema = z.object({
 })
 
 export type LoginSchema = z.infer<typeof loginSchema>
+
+export const registerSchema = loginSchema.merge(
+  z.object({
+    name: z.string().min(2, {
+      message: i18n.t('auth:register.errors.name'),
+    }),
+  })
+)
+
+export type RegisterSchema = z.infer<typeof registerSchema>

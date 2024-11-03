@@ -17,7 +17,7 @@ import {
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from "react-i18next"
-import { loginSchema, LoginSchema } from "../schemas/user.schema"
+import { loginSchema, LoginSchema } from "../schemas/auth-schema"
 import { Link } from "react-router-dom"
 
 export const LoginPage = () => {
@@ -37,7 +37,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <Card className="w-1/3 shadow-lg rounded-2xl">
+    <Card className="size-full flex flex-col justify-center md:size-auto md:w-1/2 lg:w-1/3 md:shadow-lg md:rounded-2xl">
       <CardHeader>
         <CardTitle className="text-4xl text-center">{t('login.form-header')}</CardTitle>
       </CardHeader>
@@ -64,7 +64,7 @@ export const LoginPage = () => {
                 <FormItem>
                   <FormLabel>{t('login.inputs.password.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('login.inputs.password.placeholder')} {...field} />
+                    <Input type="password" placeholder={t('login.inputs.password.placeholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,9 +84,11 @@ export const LoginPage = () => {
                   </FormItem>
                 )}
               />
-              <Link to='/' className="text-sm">
-                {t('login.forgot-password')}
-              </Link>
+              {/* TODO: make this feature
+                <Link to='/' className="text-xs md:text-sm">
+                  {t('login.forgot-password')}
+                </Link> 
+              */}
             </div>
             <Button type="submit" className="w-full">{t('login.submit')}</Button>
           </form>
@@ -95,9 +97,9 @@ export const LoginPage = () => {
       <CardFooter className="flex justify-center">
         <p className="text-xs text-gray-600">
           {t('login.dont-have-account.label')}{' '}
-          <a href="#" className="font-medium text-gray-900">
+          <Link to='/auth/register' className="font-medium text-gray-900">
             {t('login.dont-have-account.link')}
-          </a>
+          </Link>
         </p>
       </CardFooter>
     </Card>

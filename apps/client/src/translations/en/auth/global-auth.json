@@ -22,5 +22,26 @@
       "email": "The entered email address is not valid.",
       "password": "The password is not secure"
     }
+  },
+  "register": {
+    "form-header": "Sing Up",
+    "inputs": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter your user name"
+      },
+      "password": {
+        "description": "Minimum 8 characters, 1 uppercase, 1 lowercase and 1 number"
+      }
+    },
+    "remember-me": "Remember me",
+    "have-account": {
+      "label": "have an account?",
+      "link": "Sign in"
+    },
+    "submit": "login",
+    "errors": {
+      "name": "The name is too short"
+    }
   }
 }
