@@ -43,5 +43,8 @@
     "errors": {
       "name": "The name is too short"
     }
+  },
+  "errors": {
+    "token-expired": "Your session has expired"
   }
 }

@@ -20,8 +20,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from "react-i18next"
 import { registerSchema, RegisterSchema } from "../schemas/auth-schema"
 import { Link } from "react-router-dom"
+import { useAuthStorage } from "../hooks"
 
 export const RegisterPage = () => {
+  const { handleRegister } = useAuthStorage()
   const [t] = useTranslation('auth')
 
   const form = useForm<RegisterSchema>({
@@ -35,7 +37,11 @@ export const RegisterPage = () => {
   })
 
   function onSubmit(values: RegisterSchema) {
-    console.log(values)
+    // TODO: make that remember feature works
+
+    delete values.remember
+
+    handleRegister(values)
   }
 
   return (

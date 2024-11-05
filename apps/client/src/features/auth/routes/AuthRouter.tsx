@@ -1,18 +1,15 @@
-import { RouteObject } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { LoginPage, RegisterPage } from "../pages"
 import { AuthLayout } from "../layouts"
 
-export const AuthRouter: RouteObject = {
-  path: '/auth',
-  element: <AuthLayout />,
-  children: [
-    {
-      path: '',
-      element: <LoginPage />
-    },
-    {
-      path: 'register',
-      element: <RegisterPage />
-    },
-  ]
+export const AuthRouter = () => {
+  return (
+    <Routes>
+      <Route path="" element={<AuthLayout />}>
+        <Route index element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="/*" element={<Navigate to='/auth' />} />
+      </Route>
+    </Routes>
+  )
 }

@@ -51,7 +51,7 @@ describe('AuthService', () => {
       .mockReturnValue(tokenResponseFixture.token);
 
     await expect(authService.register(createUserFixture)).resolves.toEqual({
-      user: userFixture,
+      name: userFixture.name,
       ...tokenResponseFixture,
     });
   });

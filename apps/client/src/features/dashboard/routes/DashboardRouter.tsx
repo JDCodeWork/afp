@@ -1,7 +1,10 @@
-import { RouteObject } from "react-router-dom";
-import { DashboardPage } from "../pages";
+import { Route, Routes } from "react-router-dom"
+import { DashboardPage } from "../pages"
 
-export const DashboardRouter: RouteObject = {
-  path: '/',
-  element: <DashboardPage />
+export const DashboardRouter = () => {
+  return (
+    <Routes>
+      <Route index element={<DashboardPage />} />
+    </Routes>
+  )
 }
