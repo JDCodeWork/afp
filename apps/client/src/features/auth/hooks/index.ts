@@ -1,1 +1,1 @@
-export * from './useAuthStorage'
+export * from './useAuth'

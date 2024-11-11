@@ -21,9 +21,12 @@ import { loginSchema, LoginSchema } from "../schemas/auth-schema"
 import { Link } from "react-router-dom"
 
 import loginImg from '../assets/login-img.svg'
+import { useAuth } from "../hooks"
 
 export const LoginPage = () => {
   const [t] = useTranslation('auth')
+
+  const { handleLogin } = useAuth()
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -35,12 +38,14 @@ export const LoginPage = () => {
   })
 
   function onSubmit(values: LoginSchema) {
-    console.log(values)
+    delete values.remember
+
+    handleLogin(values)
   }
 
   return (
     <>
-      <div className="flex flex-col items-center -translate-y-6">
+      <div className="hidden md:flex md:flex-col md:items-center md:-translate-y-6">
         <img src={loginImg} alt="login-img" className="size-[400px]" height={400} width={400} />
         <p className="text-sm text-primary/75 flex flex-col-reverse text-center -translate-y-2 pr-6"><span className="text-primary">AFP.</span> Aplicación de Finanzas Personales</p>
       </div>

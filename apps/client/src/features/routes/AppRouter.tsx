@@ -1,15 +1,29 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuthStorage, AuthRouter } from "../auth";
+import { useAuth, AuthRouter } from "../auth";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import { toast } from "sonner";
+import { Loader } from "../auth/components/Loader";
 
 export const AppRouter = () => {
-  const { authState, checkSession } = useAuthStorage()
+  const { authState, checkSession, handleClearError } = useAuth()
 
   useEffect(() => {
-    if (authState.status != "not-authenticated")
+    if (authState.status != "not-authenticated") {
       checkSession()
+    }
   }, []);
+
+  useEffect(() => {
+    if (authState.message && authState.message.length > 1) {
+      toast.error(authState.message)
+      handleClearError()
+    }
+  }, [authState.message]);
+
+  if (authState.status == "checking") {
+    return <Loader />
+  }
 
   return (
     <Routes>

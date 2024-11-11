@@ -26,7 +26,7 @@ export class UsersService {
         name,
       };
     } catch (error) {
-      this.commonService.handleErrors(error);
+      this.commonService.handleErrors(error.code);
     }
   }
 

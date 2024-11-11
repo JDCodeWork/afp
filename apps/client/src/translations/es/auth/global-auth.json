@@ -46,5 +46,10 @@
   },
   "errors": {
     "token-expired": "Tu sesión ha expirado"
+  },
+  "attribution": "Ilustraciones creadas por",
+  "loading-session": {
+    "title": "Cargando...",
+    "description": "Por favor, espera mientras preparamos tu contenido."
   }
 }

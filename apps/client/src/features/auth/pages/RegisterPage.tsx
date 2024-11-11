@@ -20,12 +20,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from "react-i18next"
 import { registerSchema, RegisterSchema } from "../schemas/auth-schema"
 import { Link } from "react-router-dom"
-import { useAuthStorage } from "../hooks"
+import { useAuth } from "../hooks"
 
 import registerImg from '../assets/register-img.svg'
 
 export const RegisterPage = () => {
-  const { handleRegister } = useAuthStorage()
+  const { handleRegister } = useAuth()
   const [t] = useTranslation('auth')
 
   const form = useForm<RegisterSchema>({
@@ -48,8 +48,8 @@ export const RegisterPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center -translate-y-6">
-        <img src={registerImg} alt="register-img" className="size-[400px]"  height={400} width={400}/>
+      <div className="hidden md:flex md:flex-col md:items-center md:-translate-y-6">
+        <img src={registerImg} alt="register-img" className="size-[400px]" height={400} width={400} />
         <p className="text-sm text-primary/75 flex flex-col-reverse text-center pr-6"><span className="text-primary">AFP.</span> Aplicación de Finanzas Personales</p>
       </div>
       <Card className="size-full md:size-auto md:w-1/2 lg:w-1/3 md:shadow-lg md:rounded-2xl">

@@ -46,5 +46,10 @@
   },
   "errors": {
     "token-expired": "Your session has expired"
+  },
+  "attribution": "App illustrations by",
+  "loading-session": {
+    "title": "Loading...",
+    "description": "Please wait while we prepare your content."
   }
 }
