@@ -17,7 +17,7 @@ import {
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from "react-i18next"
-import { loginSchema, LoginSchema } from "../schemas/auth-schema"
+import { loginFormSchema, LoginFormInputs } from "../schemas/auth-schema"
 import { Link } from "react-router-dom"
 
 import loginImg from '../assets/login-img.svg'
@@ -28,8 +28,8 @@ export const LoginPage = () => {
 
   const { handleLogin } = useAuth()
 
-  const form = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -37,7 +37,7 @@ export const LoginPage = () => {
     },
   })
 
-  function onSubmit(values: LoginSchema) {
+  function onSubmit(values: LoginFormInputs) {
     delete values.remember
 
     handleLogin(values)

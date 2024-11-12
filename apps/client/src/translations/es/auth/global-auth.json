@@ -31,7 +31,7 @@
         "placeholder": "Ingresa tu nombre de usuario"
       },
       "password": {
-        "description": "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula y  1 número"
+        "description": "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 especial"
       }
     },
     "remember-me": "Recuérdame",
@@ -39,7 +39,11 @@
       "label": "¿Ya tienes una cuenta?",
       "link": "Ingresa"
     },
-    "submit": "registrarme",
+    "navigation": {
+      "submit": "Registrarme",
+      "next": "Siguiente",
+      "prev": "Anterior"
+    },
     "errors": {
       "name": "El nombre es demasiado corto"
     }

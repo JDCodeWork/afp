@@ -3,7 +3,7 @@ import { checkingStatus, clearError, login, logout } from '../store'
 import { authApi } from '../api'
 import { useTranslation } from 'react-i18next'
 import { AuthResponse, ErrorResponse } from '../interfaces'
-import { LoginSchema, RegisterSchema } from '../schemas/auth-schema'
+import { LoginFormInputs, RegisterFormInputs } from '../schemas/auth-schema'
 import axios from 'axios'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -35,7 +35,7 @@ export const useAuth = () => {
     }
   }
 
-  const handleRegister = async (user: Omit<RegisterSchema, 'remember'>) => {
+  const handleRegister = async (user: Omit<RegisterFormInputs, 'remember'>) => {
     dispatch(checkingStatus())
 
     try {
@@ -51,7 +51,7 @@ export const useAuth = () => {
     }
   }
 
-  const handleLogin = async (user: Omit<LoginSchema, 'remember'>) => {
+  const handleLogin = async (user: Omit<LoginFormInputs, 'remember'>) => {
     dispatch(checkingStatus())
 
     await sleep(5000)

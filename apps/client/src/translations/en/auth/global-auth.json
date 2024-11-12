@@ -31,7 +31,7 @@
         "placeholder": "Enter your user name"
       },
       "password": {
-        "description": "Minimum 8 characters, 1 uppercase, 1 lowercase and 1 number"
+        "description": "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special"
       }
     },
     "remember-me": "Remember me",
@@ -39,7 +39,11 @@
       "label": "have an account?",
       "link": "Sign in"
     },
-    "submit": "login",
+    "navigation": {
+      "submit": "Login",
+      "next": "Next",
+      "prev": "Previous"
+    },
     "errors": {
       "name": "The name is too short"
     }
