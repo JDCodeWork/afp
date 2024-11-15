@@ -91,6 +91,21 @@ export const RegisterSecondStep: FC<PropsWithMobile> = ({ control, isMobile = fa
           </FormItem>
         )}
       />
+      <FormField
+        control={control}
+        name="confirmPassword"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="flex items-center gap-1">
+              {t('register.inputs.confirm-password.label')}
+            </FormLabel>
+            <FormControl>
+              <Input type="password" placeholder={t('login.inputs.password.placeholder')} {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <div className="flex justify-between items-center">
         <FormField
           control={control}

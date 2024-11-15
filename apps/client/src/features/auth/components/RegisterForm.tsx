@@ -20,13 +20,11 @@ const formSteps = [
     fields: ["name", "email"]
   },
   {
-    fields: ["password"]
+    fields: ["password", "confirmPassword"]
   }
 ]
 
 type fieldName = keyof RegisterFormInputs
-
-
 
 
 export const RegisterForm = () => {
@@ -75,10 +73,10 @@ export const RegisterForm = () => {
 
   function onSubmit(values: RegisterFormInputs) {
     delete values.remember
+    delete values.confirmPassword 
 
     handleRegister(values)
   }
-
 
   return (
     <Card className="size-full md:size-auto md:w-1/2 lg:w-1/3 md:shadow-lg md:rounded-2xl">

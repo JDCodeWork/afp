@@ -28,10 +28,15 @@
     "inputs": {
       "name": {
         "label": "Name",
-        "placeholder": "Enter your user name"
+        "placeholder": "Enter your user name",
+        "error": "The name is too short"
       },
       "password": {
         "description": "Minimum 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special"
+      },
+      "confirm-password": {
+        "label": "Confirm password",
+        "error": "Passwords don't match"
       }
     },
     "remember-me": "Remember me",
@@ -43,9 +48,6 @@
       "submit": "Login",
       "next": "Next",
       "prev": "Previous"
-    },
-    "errors": {
-      "name": "The name is too short"
     }
   },
   "errors": {

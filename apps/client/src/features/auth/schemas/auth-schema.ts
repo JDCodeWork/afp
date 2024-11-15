@@ -11,12 +11,18 @@ export const loginFormSchema = z.object({
 
 export type LoginFormInputs = z.infer<typeof loginFormSchema>
 
-export const registerFormSchema = loginFormSchema.merge(
-  z.object({
-    name: z.string().min(2, {
-      message: i18n.t('auth:register.errors.name'),
-    }),
+export const registerFormSchema = loginFormSchema
+  .merge(
+    z.object({
+      name: z.string().min(2, {
+        message: i18n.t('auth:register.inputs.name.error'),
+      }),
+      confirmPassword: z.string().optional(),
+    })
+  )
+  .refine((data) => data.password == data.confirmPassword, {
+    message: i18n.t('auth:register.inputs.confirm-password.error'),
+    path: ['confirmPassword'],
   })
-)
 
 export type RegisterFormInputs = z.infer<typeof registerFormSchema>

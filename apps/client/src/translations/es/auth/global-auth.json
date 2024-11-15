@@ -28,10 +28,15 @@
     "inputs": {
       "name": {
         "label": "Nombre",
-        "placeholder": "Ingresa tu nombre de usuario"
+        "placeholder": "Ingresa tu nombre de usuario",
+        "error": "El nombre es demasiado corto"
       },
       "password": {
         "description": "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 especial"
+      },
+      "confirm-password": {
+        "label": "Confirma la contraseña",
+        "error": "Las contraseñas no coinciden"
       }
     },
     "remember-me": "Recuérdame",
@@ -43,9 +48,6 @@
       "submit": "Registrarme",
       "next": "Siguiente",
       "prev": "Anterior"
-    },
-    "errors": {
-      "name": "El nombre es demasiado corto"
     }
   },
   "errors": {
