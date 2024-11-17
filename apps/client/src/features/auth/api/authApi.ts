@@ -1,5 +1,3 @@
-import axios from 'axios'
+import { createApi } from "@/shared/lib";
 
-export const authApi = axios.create({
-  baseURL: 'http://localhost:5173/api/auth'
-})
+export const authApi = createApi("/auth")

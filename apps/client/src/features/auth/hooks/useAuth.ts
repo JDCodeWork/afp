@@ -6,8 +6,6 @@ import { AuthResponse, ErrorResponse } from '../interfaces'
 import { LoginFormInputs, RegisterFormInputs } from '../schemas/auth-schema'
 import axios from 'axios'
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
 export const useAuth = () => {
   const authState = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
@@ -22,15 +20,19 @@ export const useAuth = () => {
 
     if (!user) return dispatch(logout())
 
-    const { data } = await authApi('/check', {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+    try {
+      const { data } = await authApi('/check', {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
 
-    if (data.ok) {
+      if (!data.ok) {
+        return logout(tGlobal('unexpected-error'))
+      }
+
       dispatch(login(user))
-    } else {
+    } catch {
       dispatch(logout(t('errors.token-expired')))
     }
   }
@@ -53,8 +55,6 @@ export const useAuth = () => {
 
   const handleLogin = async (user: Omit<LoginFormInputs, 'remember'>) => {
     dispatch(checkingStatus())
-
-    await sleep(5000)
 
     try {
       const { data } = await authApi.post<AuthResponse>('/', user)

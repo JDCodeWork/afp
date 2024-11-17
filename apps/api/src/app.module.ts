@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -12,6 +12,7 @@ import { BudgetsModule } from './budgets/budgets.module';
 import { GoalsModule } from './goals/goals.module';
 import { ScheduledPaymentsModule } from './scheduled-payments/scheduled-payments.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { LanguageMiddleware } from './common/middleware/language.middleware';
 
 @Module({
   imports: [
@@ -40,4 +41,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     ScheduledPaymentsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LanguageMiddleware).forRoutes('*');
+  }
+}

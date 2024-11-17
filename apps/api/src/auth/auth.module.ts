@@ -22,7 +22,7 @@ import { User } from './entities/user.entity';
         return {
           secret: configService.get('SECRET_KEY'),
           signOptions: {
-            expiresIn: '7d',
+            expiresIn: '1d',
           },
         };
       },
