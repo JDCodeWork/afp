@@ -7,6 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { ValidRoles } from '../interfaces/valid-roles';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -51,4 +52,14 @@ export class CreateUserDto {
   @IsString()
   @IsIn(['email'])
   loginType?: string;
+
+  @ApiProperty({
+    description: 'The rol of the user. Default is "user".',
+    enum: ValidRoles,
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn([ValidRoles])
+  role?: string;
 }

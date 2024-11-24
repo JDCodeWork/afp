@@ -51,6 +51,9 @@ export class User {
   @Column({ type: 'text', default: 'email' })
   loginType?: string;
 
+  @Column({ type: 'text', array: true, default: ['user'] })
+  roles?: string[];
+
   @ApiProperty({
     description: 'List of transactions associated with the user',
     type: () => Transaction,

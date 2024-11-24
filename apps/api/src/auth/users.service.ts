@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CommonService } from '@/common/common.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto';
 import { User } from './entities/user.entity';
+import { CommonService } from '@/common/common.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +30,11 @@ export class UsersService {
     }
   }
 
-  async findOneByEmail(email: string) {
+  async findByEmail(email: string) {
     return await this.userRepository.findOneBy({ email });
+  }
+
+  async findById(id: string) {
+    return await this.userRepository.findOneBy({ id });
   }
 }

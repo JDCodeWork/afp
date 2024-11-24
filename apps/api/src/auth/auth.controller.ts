@@ -1,16 +1,17 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+
+import { AuthService } from './auth.service';
+import { Auth } from './decorators';
+
+import { CreateUserDto, LoginUserDto } from './dto';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/')
+  @Post()
   @ApiResponse({
     status: 200,
     description: 'User logged in successfully.',
@@ -23,7 +24,7 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
-  @Post('/register')
+  @Post('register')
   @ApiResponse({
     status: 201,
     description: 'User registered successfully.',
@@ -36,12 +37,10 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  @UseGuards(AuthGuard())
-  @Get('/check')
+  @Auth()
+  @Get('check')
   checkToken() {
-    return {
-      ok: true,
-    };
+    return this.authService.checkStatus();
   }
 
   // TODO: Implement Google Sign-In and Sign-Up
