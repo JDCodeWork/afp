@@ -7,6 +7,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { CommonService } from '../common/common.service';
+import { ValidRoles } from './interfaces/valid-roles';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -22,17 +24,16 @@ export class AuthService {
    * @returns An object containing the created user and a JWT token.
    */
   async register(createUserDto: CreateUserDto) {
-    const { password, email } = createUserDto;
+    const { password } = createUserDto;
 
-    // Hash the user's password before saving
     const salt = bcrypt.genSaltSync();
     createUserDto.password = bcrypt.hashSync(password, salt);
 
-    // Create the user
+    if (!createUserDto.role) createUserDto.role = ValidRoles.User;
+
     const user = await this.usersService.create(createUserDto);
 
-    // Generate a JWT token for the user
-    const token = this.jwtService.sign({ email });
+    const token = this.getJwtToken({ id: user.id });
 
     return {
       name: user.name,
@@ -48,11 +49,9 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const { email } = loginUserDto;
 
-    // Find the user by email
-    const user = await this.usersService.findOneByEmail(email);
+    const user = await this.usersService.findByEmail(email);
     if (!user) this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
-    // Check if the provided password matches the stored hashed password
     const isCorrectPassword = bcrypt.compareSync(
       loginUserDto.password,
       user.password,
@@ -61,13 +60,29 @@ export class AuthService {
     if (!isCorrectPassword)
       this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
-    // Generate a JWT token for the user
-    const token = this.jwtService.sign({ email });
+    const token = this.getJwtToken({ id: user.id });
 
     return {
       name: user.name,
       token,
     };
+  }
+
+  /**
+   * Check the auth state of the user
+   * @returns An object with a property called ok
+   */
+  checkStatus() {
+    // TODO: make logic to handle the numbers of time the token is regenerate
+
+    return {
+      ok: true,
+      // TODO: return new token
+    };
+  }
+
+  private getJwtToken(payload: JwtPayload) {
+    return this.jwtService.sign(payload);
   }
 
   /**

@@ -1,9 +1,10 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { Auth } from './decorators/auth.decorator';
+import { ValidRoles } from './interfaces/valid-roles';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -36,12 +37,10 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  @UseGuards(AuthGuard())
   @Get('/check')
+  @Auth(ValidRoles.User, ValidRoles.SuperUser)
   checkToken() {
-    return {
-      ok: true,
-    };
+    return this.authService.checkStatus();
   }
 
   // TODO: Implement Google Sign-In and Sign-Up

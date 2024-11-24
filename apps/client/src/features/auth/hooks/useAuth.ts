@@ -19,7 +19,7 @@ export const useAuth = () => {
     dispatch(checkingStatus())
 
     if (!user) return dispatch(logout())
-
+    
     try {
       const { data } = await authApi('/check', {
         headers: {
@@ -32,7 +32,8 @@ export const useAuth = () => {
       }
 
       dispatch(login(user))
-    } catch {
+    } catch (e) {
+      console.log('e', e)
       dispatch(logout(t('errors.token-expired')))
     }
   }

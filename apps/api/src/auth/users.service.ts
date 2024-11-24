@@ -30,7 +30,10 @@ export class UsersService {
     }
   }
 
-  async findOneByEmail(email: string) {
+  async findByEmail(email: string) {
     return await this.userRepository.findOneBy({ email });
+  }
+  async findById(id: string) {
+    return await this.userRepository.findOneBy({ id });
   }
 }

@@ -38,8 +38,6 @@ export const LoginPage = () => {
   })
 
   function onSubmit(values: LoginFormInputs) {
-    delete values.remember
-
     handleLogin(values)
   }
 
