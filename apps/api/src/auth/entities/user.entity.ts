@@ -57,7 +57,7 @@ export class User {
     description: 'The rol of the user',
     enum: ValidRoles,
   })
-  @Column({ type: 'text' })
+  @Column({ type: 'text', default: 'user' })
   role: string;
 
   @ApiProperty({

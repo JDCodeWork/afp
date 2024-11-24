@@ -1,19 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { CommonService } from '@/common/common.service';
-import { ErrorCodes } from '@/common/interfaces';
 import { User } from '../entities/user.entity';
-import { UsersService } from '../users.service';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ErrorCodes } from '@/common/interfaces';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly userService: UsersService,
-    private readonly commonService: CommonService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly configService: ConfigService,
   ) {
     super({
@@ -25,9 +26,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: JwtPayload): Promise<User> {
     const { id } = payload;
 
-    const user = await this.userService.findById(id);
+    const user = await this.userRepository.findOneBy({ id });
 
-    if (!user) this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
+    if (!user)
+      throw new UnauthorizedException(
+        CommonService.getErrorMessage(ErrorCodes.TokenNotValid, 'en'),
+      );
 
     return user;
   }
