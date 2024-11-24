@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Auth } from './decorators';
-
-import { CreateUserDto, LoginUserDto } from './dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Auth } from './decorators/auth.decorator';
+import { ValidRoles } from './interfaces/valid-roles';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -37,8 +37,8 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  @Auth()
-  @Get('check')
+  @Get('/check')
+  @Auth(ValidRoles.User, ValidRoles.SuperUser)
   checkToken() {
     return this.authService.checkStatus();
   }

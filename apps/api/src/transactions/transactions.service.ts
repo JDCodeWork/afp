@@ -237,7 +237,7 @@ export class TransactionsService {
   findByScheduled(user: User, category: Category) {
     return this.transactionRepository.findBy({
       user,
-      category,
+      category: category,
       isScheduled: true,
     });
   }

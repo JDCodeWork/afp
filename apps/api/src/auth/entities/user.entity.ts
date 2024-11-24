@@ -5,6 +5,7 @@ import { ScheduledPayment } from '@/scheduled-payments/entities/scheduled-paymen
 import { Transaction } from '@/transactions/entities/transaction.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ValidRoles } from '../interfaces/valid-roles';
 
 @Entity()
 export class User {
@@ -53,6 +54,14 @@ export class User {
 
   @Column({ type: 'text', array: true, default: ['user'] })
   roles?: string[];
+
+  @ApiProperty({
+    example: 'user',
+    description: 'The rol of the user',
+    enum: ValidRoles,
+  })
+  @Column({ type: 'text', default: 'user' })
+  role: string;
 
   @ApiProperty({
     description: 'List of transactions associated with the user',

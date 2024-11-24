@@ -5,9 +5,8 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { CommonService } from '../common/common.service';
-import { ErrorCodes } from '../common/interfaces/error-codes.interface';
 import { ValidRoles } from './interfaces/valid-roles';
-import { UsersService } from './users.service';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +24,8 @@ export class AuthService {
   async register(createUserDto: CreateUserDto) {
     const { password } = createUserDto;
 
-    createUserDto.password = bcrypt.hashSync(password, 10);
+    const salt = bcrypt.genSaltSync();
+    createUserDto.password = bcrypt.hashSync(password, salt);
 
     if (!createUserDto.role) createUserDto.role = ValidRoles.User;
 

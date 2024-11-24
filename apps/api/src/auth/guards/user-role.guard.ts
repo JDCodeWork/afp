@@ -1,18 +1,17 @@
-import { Reflector } from '@nestjs/core';
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  BadRequestException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { User } from '../entities/user.entity';
+import { Reflector } from '@nestjs/core';
 import { META_ROLES } from '../decorators/role-protected.decorator';
+import { User } from '../entities/user.entity';
+import { CommonService } from '@/common/common.service';
+import { ErrorCodes } from '@/common/interfaces';
 
 @Injectable()
 export class UserRoleGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(
+    private readonly commonService: CommonService,
+    private readonly reflector: Reflector,
+  ) {}
 
   canActivate(
     context: ExecutionContext,
@@ -22,22 +21,16 @@ export class UserRoleGuard implements CanActivate {
       context.getHandler(),
     );
 
-    if (!validRoles) return true;
-    if (validRoles.length === 0) return true;
+    if (!validRoles || validRoles.length == 0) return true;
 
     const req = context.switchToHttp().getRequest();
+
     const user = req.user as User;
 
-    if (!user) throw new BadRequestException('User not found');
+    if (!user) this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
-    for (const role of user.roles) {
-      if (validRoles.includes(role)) {
-        return true;
-      }
-    }
+    if (validRoles.includes(user.role)) return true;
 
-    throw new ForbiddenException(
-      `User ${user.name} need a valid role: [${validRoles}]`,
-    );
+    this.commonService.handleErrors(ErrorCodes.UnauthorizedRequest);
   }
 }
