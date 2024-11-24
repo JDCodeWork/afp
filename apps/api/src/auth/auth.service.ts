@@ -6,7 +6,8 @@ import { CreateUserDto, LoginUserDto } from './dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { CommonService } from '../common/common.service';
 import { ValidRoles } from './interfaces/valid-roles';
-import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { UsersService } from './users.service';
+import { ErrorCodes } from '@/common/interfaces';
 
 @Injectable()
 export class AuthService {
