@@ -6,7 +6,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CommonModule } from './common/common.module';
 import { TransactionsModule } from './transactions/transactions.module';
-import { SeedModule } from './seed/seed.module';
 import { CategoriesModule } from './categories/categories.module';
 import { BudgetsModule } from './budgets/budgets.module';
 import { GoalsModule } from './goals/goals.module';
@@ -34,7 +33,6 @@ import { LanguageMiddleware } from './common/middleware/language.middleware';
     AuthModule,
     CommonModule,
     TransactionsModule,
-    SeedModule,
     CategoriesModule,
     BudgetsModule,
     GoalsModule,

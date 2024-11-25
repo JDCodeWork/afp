@@ -11,7 +11,7 @@ export const loginFormSchema = z.object({
 
 export type LoginFormInputs = z.infer<typeof loginFormSchema>
 
-export const registerFormSchema = loginFormSchema
+export const registerFormSchema = loginFormSchema.omit({remember: true})
   .merge(
     z.object({
       name: z.string().min(2, {

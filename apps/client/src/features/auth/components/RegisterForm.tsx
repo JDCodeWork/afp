@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Form } from "@/shared/components/ui"
 import { RegisterFirstStep, RegisterSecondStep } from "./registerFormSteps"
 import { Link } from "react-router-dom"
+import { FormSteps, useMultiStepForm } from "../hooks/useMultiStepForm"
 
 const defaultValues = {
   name: '',
@@ -15,7 +16,7 @@ const defaultValues = {
   remember: true
 }
 
-const formSteps = [
+const formSteps: FormSteps<RegisterFormInputs>[] = [
   {
     fields: ["name", "email"]
   },
@@ -24,13 +25,16 @@ const formSteps = [
   }
 ]
 
-type fieldName = keyof RegisterFormInputs
-
-
 export const RegisterForm = () => {
   const [t] = useTranslation('auth')
-  const [currentStep, setCurrentStep] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+
+  const form = useForm<RegisterFormInputs>({
+    resolver: zodResolver(registerFormSchema),
+    defaultValues,
+  })
+
+  const { currentStep, handleNext, handlePrev } = useMultiStepForm({ formSteps, form, onSubmit })
 
   const { handleRegister } = useAuth()
 
@@ -50,30 +54,8 @@ export const RegisterForm = () => {
     return () => window.removeEventListener('resize', verifyWidth);
   }, []);
 
-
-  const form = useForm<RegisterFormInputs>({
-    resolver: zodResolver(registerFormSchema),
-    defaultValues,
-  })
-
-  const handleNext = async () => {
-    const fields = formSteps[currentStep].fields
-    const output = await form.trigger(fields as fieldName[], { shouldFocus: true })
-
-    if (!output) return
-
-    if (currentStep == formSteps.length - 1) return await form.handleSubmit(onSubmit)()
-
-    setCurrentStep(currentStep + 1)
-  }
-
-  const handlePrev = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1)
-  }
-
   function onSubmit(values: RegisterFormInputs) {
-    delete values.remember
-    delete values.confirmPassword 
+    delete values.confirmPassword
 
     handleRegister(values)
   }

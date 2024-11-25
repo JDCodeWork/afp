@@ -6,20 +6,19 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   ParseIntPipe,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { User } from '../auth/entities/user.entity';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Auth } from '@/auth/decorators';
 
 @ApiTags('categories')
-@UseGuards(AuthGuard())
 @Controller('categories')
+@Auth()
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

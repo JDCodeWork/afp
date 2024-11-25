@@ -6,18 +6,17 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   ParseIntPipe,
 } from '@nestjs/common';
 import { ScheduledPaymentsService } from './scheduled-payments.service';
 import { CreateScheduledPaymentDto } from './dto/create-scheduled-payment.dto';
 import { UpdateScheduledPaymentDto } from './dto/update-scheduled-payment.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '@/auth/decorators/get-user.decorator';
 import { User } from '@/auth/entities/user.entity';
+import { Auth } from '@/auth/decorators';
 
 @Controller('scheduled-payments')
-@UseGuards(AuthGuard())
+@Auth()
 export class ScheduledPaymentsController {
   constructor(
     private readonly scheduledPaymentsService: ScheduledPaymentsService,

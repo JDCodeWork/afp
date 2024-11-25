@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Control } from "react-hook-form";
 import { IoHelp } from "react-icons/io5";
 import { RegisterFormInputs } from "../schemas/auth-schema";
-import { Checkbox, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Input, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/shared/components/ui";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Input, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/shared/components/ui";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -106,21 +106,6 @@ export const RegisterSecondStep: FC<PropsWithMobile> = ({ control, isMobile = fa
           </FormItem>
         )}
       />
-      <div className="flex justify-between items-center">
-        <FormField
-          control={control}
-          name="remember"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-2">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <FormLabel className="pb-2">{t('login.remember-me')}</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
     </>
   )
 }

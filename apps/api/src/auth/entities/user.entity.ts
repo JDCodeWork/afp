@@ -52,9 +52,6 @@ export class User {
   @Column({ type: 'text', default: 'email' })
   loginType?: string;
 
-  @Column({ type: 'text', array: true, default: ['user'] })
-  roles?: string[];
-
   @ApiProperty({
     example: 'user',
     description: 'The rol of the user',

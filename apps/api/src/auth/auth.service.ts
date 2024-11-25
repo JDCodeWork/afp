@@ -59,7 +59,10 @@ export class AuthService {
     if (!isCorrectPassword)
       this.commonService.handleErrors(ErrorCodes.CredentialsNotValid);
 
-    const token = this.getJwtToken({ id: user.id });
+    const token = this.getJwtToken(
+      { id: user.id },
+      loginUserDto.remember && '7d',
+    );
 
     return {
       name: user.name,
@@ -80,8 +83,8 @@ export class AuthService {
     };
   }
 
-  private getJwtToken(payload: JwtPayload) {
-    return this.jwtService.sign(payload);
+  private getJwtToken(payload: JwtPayload, time?: string) {
+    return this.jwtService.sign(payload, time && { expiresIn: time });
   }
 
   /**

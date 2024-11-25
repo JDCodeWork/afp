@@ -13,16 +13,16 @@ import {
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { User } from '../auth/entities/user.entity';
 import { FilterTransactionByCategoryDto } from './dto/filter-transaction-by-category.dto';
 import { FilterTransactionByTransactionDto } from './dto/filter-transaction-by-transaction.dto';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { Auth } from '@/auth/decorators';
 
 @ApiTags('transactions')
 @Controller('transactions')
-@UseGuards(AuthGuard())
+@Auth()
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
