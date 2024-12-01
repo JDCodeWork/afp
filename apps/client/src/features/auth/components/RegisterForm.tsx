@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { registerFormSchema, RegisterFormInputs } from "../schemas/auth-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Form } from "@/shared/components/ui"
-import { RegisterFirstStep, RegisterSecondStep } from "./registerFormSteps"
+import { RegisterFirstStep, RegisterSecondStep } from "./register-form-steps"
 import { Link } from "react-router-dom"
 import { FormSteps, useMultiStepForm } from "../hooks/useMultiStepForm"
 

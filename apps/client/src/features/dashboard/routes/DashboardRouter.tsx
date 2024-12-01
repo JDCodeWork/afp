@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom"
-import { DashboardPage } from "../pages"
+import { DashboardLayout } from "../layouts/DashboardLayout"
 
 export const DashboardRouter = () => {
   return (
     <Routes>
-      <Route index element={<DashboardPage />} />
+      <Route index element={<DashboardLayout />} />
     </Routes>
   )
 }
