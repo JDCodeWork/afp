@@ -1,14 +1,16 @@
 
-// import { UserElement } from "./UserElement";
+import { FC, PropsWithChildren } from "react"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui"
+import { SideMenu } from "./SideMenu"
 
-import { SidebarProvider, SidebarTrigger } from "../ui"
-import { AppSidebar } from "./AppSidebar"
-
-export const Sidebar = () => {
+export const Sidebar: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <SidebarTrigger />
+      <SideMenu />
+      <SidebarInset>
+        <SidebarTrigger />
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   )
 }

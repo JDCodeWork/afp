@@ -1,9 +1,7 @@
-import { Sidebar } from "@/shared/components/sidebar"
+import { Outlet } from "react-router-dom"
 
 export const DashboardLayout = () => {
   return (
-    <div className="">
-      <Sidebar />
-    </div>
+    <Outlet />
   )
 }

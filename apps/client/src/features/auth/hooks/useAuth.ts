@@ -63,9 +63,9 @@ export const useAuth = () => {
       dispatch(login(data))
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        dispatch(logout((error.response?.data as ErrorResponse).message))
+        dispatch(logout((error.response?.data as ErrorResponse)?.message || tGlobal('unexpected-error')))
       } else {
-        dispatch(logout(tGlobal('unexpected-error')))
+        dispatch(logout())
       }
     }
   }

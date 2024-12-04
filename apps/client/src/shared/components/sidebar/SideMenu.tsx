@@ -11,15 +11,19 @@ import {
 import { navElements } from "@/shared/constants/nav-elements.constant"
 import { SideItem } from "./SideItem"
 
-export const AppSidebar = (props: React.ComponentProps<typeof Sidebar>) => {
+export const SideMenu = (props: React.ComponentProps<typeof Sidebar>) => {
   return (
-    <Sidebar collapsible="icon" {...props} className="bg-primary rounded-r-xl">
+    <Sidebar
+      {...props}
+      collapsible="icon"
+      variant="inset"
+      className="bg-primary rounded-r-xl">
       <SidebarHeader />
       <SidebarContent>
         <SidebarGroup >
           <SidebarGroupLabel className="text-primary-foreground">Applications</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="gap-2">
+            <SidebarMenu className="gap-2 pr-8">
               {
                 navElements.map(element => (
                   <SideItem key={element.label} {...element} />

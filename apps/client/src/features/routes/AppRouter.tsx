@@ -21,19 +21,19 @@ export const AppRouter = () => {
     }
   }, [authState.message]);
 
-  if (authState.status == "checking") {
-    return <Loader />
-  }
 
-  return (
-    <Routes>
-      {
-        authState.status == 'authenticated'
-          ? <Route path="/*" element={<ProtectedRoutes />} />
-          : <Route path="/auth/*" element={<AuthRouter />} />
-      }
-      <Route path="/*" element={<Navigate to='/auth' />} />
-    </Routes>
-  )
-
+  return authState.status == "checking"
+    ? (
+      <Loader />
+    )
+    : (
+      <Routes>
+        {
+          authState.status == 'authenticated'
+            ? <Route path="/*" element={<ProtectedRoutes />} />
+            : <Route path="/auth/*" element={<AuthRouter />} />
+        }
+        <Route path="/*" element={<Navigate to='/auth' />} />
+      </Routes>
+    )
 }
