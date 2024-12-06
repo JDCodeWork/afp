@@ -1,4 +1,4 @@
-import { NavLink, NavLinkRenderProps } from "react-router-dom"
+import { NavLink, NavLinkRenderProps, useNavigate } from "react-router-dom"
 import { SidebarMenuButton, SidebarMenuItem } from "../ui"
 import { cn } from "@/shared/lib"
 import { useState } from "react"
@@ -12,13 +12,17 @@ interface Props {
 export const SideItem: React.FC<Props> = ({ icon: Icon, label, url }) => {
   const [isActivePage, setIsActivePage] = useState(false)
 
+  const navigate = useNavigate()
+
   const handleClassName = ({ isActive }: NavLinkRenderProps) => {
     setIsActivePage(isActive)
 
-    const baseClass = "flex items-center gap-2 text-xl h-full w-full p-2"
+    const baseClass = "flex items-center gap-2 text-xl h-full"
 
     return cn(baseClass, isActive && "font-bold")
   }
+
+  const handleOnClick = () => navigate(url)
 
   const tooltipOptions = {
     children: label,
@@ -34,7 +38,7 @@ export const SideItem: React.FC<Props> = ({ icon: Icon, label, url }) => {
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton tooltip={tooltipOptions} className={cn(`h-auto p-0 transition-colors rounded`, isActivePage ? "hover:bg-secondary text-secondary hover:text-primary" : "hover:bg-primary-foreground text-primary-foreground/80 hover:text-primary/80")}>
+      <SidebarMenuButton tooltip={tooltipOptions} onClick={handleOnClick} className={cn(`h-auto transition-colors rounded`, isActivePage ? "hover:bg-secondary text-secondary hover:text-primary" : "hover:bg-primary-foreground text-primary-foreground/80 hover:text-primary/80")}>
         <NavLink to={url} className={handleClassName} >
           <Icon />
           <span>
