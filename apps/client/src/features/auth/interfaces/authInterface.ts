@@ -10,7 +10,7 @@ export interface ErrorResponse {
 }
 
 export interface AuthState {
-  user?: AuthResponse
+  user?: AuthResponse 
   status: 'checking' | 'authenticated' | 'not-authenticated'
   message?: string
 }

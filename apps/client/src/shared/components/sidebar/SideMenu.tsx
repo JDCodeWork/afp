@@ -10,14 +10,18 @@ import {
 } from "@/shared/components/ui"
 import { navElements } from "@/shared/constants/nav-elements.constant"
 import { SideItem } from "./SideItem"
+import { SideUser } from "./SideUser"
+import { useAuth } from "@/features/auth"
 
 export const SideMenu = (props: React.ComponentProps<typeof Sidebar>) => {
+  const { authState: { user } } = useAuth()
+
   return (
     <Sidebar
       {...props}
       collapsible="icon"
       variant="inset"
-      className="bg-primary rounded-r-xl">
+      className="bg-primary rounded-r-lg">
       <SidebarHeader />
       <SidebarContent>
         <SidebarGroup >
@@ -33,7 +37,9 @@ export const SideMenu = (props: React.ComponentProps<typeof Sidebar>) => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SideUser name={user?.name || ""} />
+      </SidebarFooter>
     </Sidebar >
   )
 }
