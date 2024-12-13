@@ -1,3 +1,17 @@
 {
-  "unexpected-error": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde."
+  "unexpected-error": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.",
+  "sidebar": {
+    "items": {
+      "dashboard": "General",
+      "transactions": "Transacciones",
+      "budgets": "Presupuestos",
+      "pots": "Ahorros",
+      "bills": "Facturas"
+    },
+    "user": {
+      "account": "Cuenta",
+      "notifications": "Notificaciones",
+      "logout": "Cerrar sesión"
+    }
+  }
 }

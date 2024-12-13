@@ -17,4 +17,5 @@ i18n
     resources,
   })
 
+export { i18n }
 export default i18n

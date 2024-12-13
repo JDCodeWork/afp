@@ -4,13 +4,6 @@ import { FaChartPie } from "react-icons/fa";
 import { MdSavings } from "react-icons/md";
 import { FaFileInvoiceDollar } from "react-icons/fa6";
 
-export const userPlaceholder = {
-  name: "shadcn", 
-  email: "m@example.com",
-  avatar: "/avatars/shadcn.jpg",
-}
-
-
 interface NavElement {
   icon: React.FC
   label: string

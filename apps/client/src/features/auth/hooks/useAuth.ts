@@ -74,11 +74,16 @@ export const useAuth = () => {
     dispatch(clearError())
   }
 
+  const handleLogout = () => {
+    dispatch(logout())
+  }
+
   return {
     authState,
     checkSession,
     handleRegister,
     handleLogin,
-    handleClearError,
+    handleLogout,
+    handleClearError
   }
 }

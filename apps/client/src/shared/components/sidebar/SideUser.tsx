@@ -20,8 +20,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/shared/components/ui"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { cn } from "@/shared/lib"
+import { useAuth } from "@/features/auth"
+import { WorkInProgress } from "../WorkInProgress"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   name: string
@@ -34,7 +37,14 @@ const avatarTextFallback = (name: string) => {
 }
 
 export const SideUser: FC<Props> = ({ name }) => {
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
+
   const { isMobile } = useSidebar()
+
+  const [t] = useTranslation('global')
+  const { handleLogout } = useAuth()
+
+  const onOpenChange = () => setIsAlertOpen(prev => !prev)
 
   return (
     <SidebarMenu>
@@ -71,23 +81,27 @@ export const SideUser: FC<Props> = ({ name }) => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-secondary/50" />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer focus:bg-secondary">
+              <DropdownMenuItem className="cursor-pointer focus:bg-secondary" onClick={onOpenChange}>
                 <BadgeCheck />
-                Account
+                {t('sidebar.user.account')}
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer focus:bg-secondary">
+              <DropdownMenuItem className="cursor-pointer focus:bg-secondary" onClick={onOpenChange}>
                 <Bell />
-                Notifications
+                {t('sidebar.user.notifications')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator className="bg-secondary/50" />
-            <DropdownMenuItem className="cursor-pointer focus:bg-red-600 focus:text-primary-foreground">
+            <DropdownMenuItem
+              className="cursor-pointer focus:bg-red-600 focus:text-primary-foreground"
+              onClick={handleLogout}
+            >
               <LogOut />
-              Log out
+              {t('sidebar.user.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
+      <WorkInProgress handleOpenChange={onOpenChange} isOpen={isAlertOpen} />
     </SidebarMenu>
   )
 }
