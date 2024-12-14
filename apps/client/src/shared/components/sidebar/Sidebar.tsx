@@ -9,7 +9,9 @@ export const Sidebar: FC<PropsWithChildren> = ({ children }) => {
       <SideMenu />
       <SidebarInset>
         <SidebarTrigger />
-        {children}
+        <div className="ml-4">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )

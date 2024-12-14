@@ -4,18 +4,14 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { resources } from '@/translations'
 
 i18n
-  // detect user language
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next.
   .use(initReactI18next)
-  // init i18next
   .init({
-    fallbackLng: 'en',
+    fallbackLng: 'es',
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     resources,
   })
 
-export { i18n }
 export default i18n
